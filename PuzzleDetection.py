@@ -1,16 +1,20 @@
-from lib2to3.pytree import convert
+from colorama import init, Fore, Back, Style
 from PIL import Image, ImageDraw,ImageGrab
-from colorama import Fore, init
+from lib2to3.pytree import convert
 from webbrowser import Chrome
-from pdb import Restart
 from GetImage import *
 import numpy as np
 import cv2 as cv
-import colorama
 import os
-    
+import sys
 
-colorama.init(convert=True) 
+# Use the same ConsoleRedirect instance if provided
+if hasattr(sys.modules[__name__], 'console_redirect'):
+    sys.stdout = sys.modules[__name__].console_redirect
+    sys.stderr = sys.modules[__name__].console_redirect
+
+# Initialize colorama with the same settings
+init(strip=False, convert=False, autoreset=True)
 
 #Text Settings for rectangle text
 font = cv.FONT_HERSHEY_TRIPLEX
@@ -117,10 +121,9 @@ def SearchForPuzzlePieces(ImageFolder, scanImage):
             #print(Fore.WHITE + str(mostMatchingPiece))
 
 
-    cv.imshow("Result", original_img)
-    cv.waitKey()
-    cv.destroyAllWindows()
+    return original_img
 
+    print(Fore.RED + "")
     exitAnswer = input(Fore.WHITE + "scan again?: ").strip().lower()
     if exitAnswer == "yes" or exitAnswer == "y":
         from GetImage import GetGameImage

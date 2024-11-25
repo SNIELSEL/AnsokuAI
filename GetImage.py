@@ -2,8 +2,9 @@ from webbrowser import Chrome
 import win32gui
 import time
 from PIL import Image, ImageDraw,ImageGrab
+import sys
 
-def GetGameImage(imageFolder, chromeTabTitle):
+def GetGameImage(imageFolder, chromeTabTitle, GUI_hnwd):
     toplist, winlist = [], []
     def enum_cb(hwnd, results):
         winlist.append((hwnd, win32gui.GetWindowText(hwnd)))
@@ -15,9 +16,11 @@ def GetGameImage(imageFolder, chromeTabTitle):
     full_screen_bbox = (0, 0, 2560, 1440)
 
     win32gui.SetForegroundWindow(hwnd)
-    time.sleep(1)
+    time.sleep(0.5)
     bbox = win32gui.GetWindowRect(hwnd)
     img = ImageGrab.grab(full_screen_bbox)
+    time.sleep(0.5)
+    win32gui.SetForegroundWindow(GUI_hnwd)
 
     from PuzzleDetection import SearchForPuzzlePieces
-    SearchForPuzzlePieces(imageFolder, img)
+    return SearchForPuzzlePieces(imageFolder, img)
