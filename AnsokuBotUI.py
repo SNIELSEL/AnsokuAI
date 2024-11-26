@@ -1,4 +1,5 @@
 import time
+from turtle import width
 import customtkinter
 from customtkinter import CTkFont  # Import CTkFont
 import tkinter
@@ -148,7 +149,7 @@ class App(customtkinter.CTk):
 
         customtkinter.set_appearance_mode("dark")
         customtkinter.set_default_color_theme("dark-blue")
-        self.title("CustomTkinter Console with Colorama - Dark Theme")
+        self.title("AnsokuBot Command Console")
         self.geometry("1200x600")
 
         self.grid_rowconfigure(0, weight=1)
@@ -236,7 +237,7 @@ class App(customtkinter.CTk):
         self.run_button = customtkinter.CTkButton(
             self.run_button_frame, 
             text="Run", 
-            command=self.start_bot_output,
+            command=self.start_AnsokuENV_output,
             hover_color="#44475a",  # Darker shade on hover
             fg_color="#6272a4",      # Initial color
             text_color="#f8f8f2",    # Text color
@@ -251,21 +252,22 @@ class App(customtkinter.CTk):
         self.image_display_frame.grid(row=1, column=0, sticky='nsew', padx=10, pady=10)
         self.image_display_frame.grid_rowconfigure(0, weight=1)
         self.image_display_frame.grid_columnconfigure(0, weight=1)
+        self.image_display_frame.grid_rowconfigure(0, weight=1)      # Minimum height
+        self.image_display_frame.grid_columnconfigure(0, weight=1, minsize=500)   # Minimum width
 
-        # Placeholder panel with darker gray background
         self.placeholder_panel = tkinter.Frame(
             self.image_display_frame, 
             bg='#2F2F2F'  # Darker gray
         )
         self.placeholder_label = tkinter.Label(
             self.placeholder_panel,
-            text="No Resu Loaded",
+            text="No Result Loaded",
             bg='#2F2F2F',
             fg='#f8f8f2',
             font=('TkDefaultFont', 14)
         )
         self.placeholder_label.pack(expand=True, fill='both')
-        self.placeholder_panel.grid(row=0, column=0, sticky='nsew')
+        self.placeholder_panel.grid(row=0, column=0, columnspan=1, sticky='nsew')  # Allow expansion
 
         # Image label below the Run button (initially hidden)
         self.image_label = tkinter.Label(self.image_display_frame, bg='#1e1e1e')
@@ -277,16 +279,9 @@ class App(customtkinter.CTk):
         self.filter_var.trace('w', self.update_filter)
 
         # Initialize a flag to prevent multiple threads
-        self.bot_thread = None
+        self.AnsokuENV_thread = None
 
-    def start_bot_output(self):
-        if self.bot_thread and self.bot_thread.is_alive():
-            print(Fore.YELLOW + "Bot is already running.")
-            return
-        self.run_button.configure(state='disabled')  # Disable the button to prevent multiple clicks
-        self.bot_thread = threading.Thread(target=self.bot_output, daemon=True)
-        self.bot_thread.start()
-        print(Fore.GREEN + "Started Bot started.")
+        #self.start_AnsokuENV_output()
 
     def initialize_window_handle(self):
         try:
@@ -298,44 +293,22 @@ class App(customtkinter.CTk):
         except Exception as e:
             print(Fore.RED + f"Error retrieving window handle: {e}")
 
-    def bot_output(self):
+    def start_AnsokuENV_output(self):
+        if self.AnsokuENV_thread and self.AnsokuENV_thread.is_alive():
+            print(Fore.YELLOW + "Bot is already running.")
+            return
+        self.run_button.configure(state='disabled')
+        self.AnsokuENV_thread = threading.Thread(target=self.AnsokuENV_output, daemon=True)
+        self.AnsokuENV_thread.start()
+        print(Fore.BLUE + "AI started.")
+
+    def AnsokuENV_output(self):
         try:
             time.sleep(1)
-            from GetImage import GetGameImage
-            puzzlePieceFolder = "PuzzlePieces/"
-            chromeTabTitle = "unity web player"
 
-            sys.modules['GetImage'].console_redirect = sys.stdout
-
-            while True:
-                if self.hwnd:
-                    try:
-                        win32gui.SetForegroundWindow(self.hwnd)
-                    except Exception as e:
-                        print(Fore.RED + f"Failed to set window to foreground: {e}")
-
-                img = GetGameImage(puzzlePieceFolder, chromeTabTitle, self.hwnd)
-
-                if img is None:
-                    print(Fore.RED + "No image returned. Exiting...")
-                    self.close_app()
-                    break
-
-                # Display cropped image region
-                self.display_image(img, (457, 32, 823, 690))
-
-                # Prompt the user and handle responses
-                while True:
-                    exitAnswer = input(Fore.WHITE + "scan again?: ").strip().lower()
-                    if exitAnswer in ['yes', 'y']:
-                        print(Fore.GREEN + "Continuing to scan...")
-                        break  # Exit the inner loop and continue scanning
-                    elif exitAnswer in ['no', 'n']:
-                        print(Fore.YELLOW + "Exiting the application.")
-                        self.close_app()
-                        return  # Exit the bot_output method
-                    else:
-                        print(Fore.RED + "Invalid input. Please enter 'yes' or 'no'.")
+            from AnsokuStartup import StartAI
+            sys.modules['AnsokuStartup'].console_redirect = sys.stdout
+            StartAI(puzzlePieceFolder, chromeTabTitle, self.hwnd, self)
 
         except Exception as e:
             print(Fore.RED + f"An error occurred: {e}")
@@ -425,6 +398,8 @@ class App(customtkinter.CTk):
         self.console.tag_configure('input', elide=False)
 
 if __name__ == "__main__":
+    puzzlePieceFolder = "PuzzlePieces/"
+    chromeTabTitle = "unity web player"
     app = App()
     builtins.input = custom_input
     app.after(1000, app.initialize_window_handle)  # Ensure window handle is initialized after setup

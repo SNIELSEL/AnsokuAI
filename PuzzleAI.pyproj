@@ -26,7 +26,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AnsokuAI.py" />
+    <Compile Include="AnsokuStartup.py" />
     <Compile Include="env\Lib\site-packages\colorama\ansi.py" />
     <Compile Include="env\Lib\site-packages\colorama\ansitowin32.py" />
     <Compile Include="env\Lib\site-packages\colorama\initialise.py" />
@@ -1081,6 +1081,9 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Driver\chromedriver.exe" />
+    <Content Include="Driver\LICENSE.chromedriver" />
+    <Content Include="Driver\THIRD_PARTY_NOTICES.chromedriver" />
     <Content Include="env\Lib\site-packages\colorama-0.4.6.dist-info\INSTALLER" />
     <Content Include="env\Lib\site-packages\colorama-0.4.6.dist-info\licenses\LICENSE.txt" />
     <Content Include="env\Lib\site-packages\colorama-0.4.6.dist-info\METADATA" />
@@ -2733,6 +2736,7 @@
     <InterpreterReference Include="Global|PythonCore|3.10" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Driver\" />
     <Folder Include="env\" />
     <Folder Include="env\Include\" />
     <Folder Include="env\Lib\" />
