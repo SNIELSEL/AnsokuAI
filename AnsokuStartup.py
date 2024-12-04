@@ -1,6 +1,5 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-from stable_baselines3.common.envs import gym
 from colorama import init, Fore, Back, Style
 from GetImage import GetGameImage
 from selenium import webdriver
@@ -52,6 +51,6 @@ def EnterPlayState(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance):
 
     pyautogui.click(1280,820)
 
-    time.sleep(3)
+    time.sleep(5)
 
     GetGameImage(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance)

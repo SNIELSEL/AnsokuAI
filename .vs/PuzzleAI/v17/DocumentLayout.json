@@ -7,16 +7,20 @@
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:PuzzleDetection.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GridSystems.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:GridSystems.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GetImage.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:GetImage.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,33 +30,49 @@
       "DocumentGroups": [
         {
           "DockedHeight": 506,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "GridSystems.py",
+              "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GridSystems.py",
+              "RelativeDocumentMoniker": "GridSystems.py",
+              "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GridSystems.py",
+              "RelativeToolTip": "GridSystems.py",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABEAAABZAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd\u002BUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUdSURBVEhLvVbtS1tXHH5u3qqJTdT4hl2nVYO4unbKBsJW0IJrCcwP\u002B\u002BKYZaX7MnCFYXH9sj9g0MFY96nFL520bKzdhw6ck4lbsS\u002BbtdZ1BLU2SqbT1MT4rnm79\u002B45N7fTtDEpFPbAw8k5J/c89/md3/mdi/8VqqpK\u002Bs8kWK3WfSaTyap3nxcy6V9dXd1MdFMjpaDb7e5vbGw8SlF9JD0WFhawvr4eiEajX/T19V30\u002BXxr\u002BtQz2FWwq6vraG5urj6SHj09PVhZWVmm8OL09PSlwcHBryYmJjb06SQY9PaFUVlZmdvS0pJfXl7e1tDQ0Hnw4EGbPpUEo94mweVyfcCHD1gsFoyPjyMYDD7DUCiE/Px8SJKEyclJse\u002BgSHZFRcWeubm5Aj5bLMvyUCAQiOnLasjokG\u002BckmVlZZrY0ygpKdnb1tZWTWE3t6RdH/4PaQXFgsLlbnwCg8GAq1ev4uzZs\u002Bjs7MS5c\u002Bdsfr\u002B/nlMViX9sI20a8tjA4/HovWQYjUbU1NRoL9Xc3IympiZ9JgGv14uOjg69t42MDmtra1NSiAlRhYkeVQ2IqCZEYaYFi7afOyOwExn3cH5\u002BPiXDkSjG/Jv48b4f3/7\u002BN7pvTqN70IvLN734eXSWL2GE0\u002BnUV9lGWkERUnH4UzEumXBteAYzSxsYngrilwez6B3x4drtR7jY9xcGvSs4dPiwvtI2Moa0qKgoJSOKAfOhTVQU2ODIMkGRZahKXGtX1rcwMb\u002BGEyc/NLa2tiYdvYwOR0ZGUjImK/AvraH7xkOMzSyCZw5yXNEEZUX8llFUXGIoLS1NEkxb2hwOBxRF0caE27giwbsYxvzSpia4FYlxXiZVTPmXccszg9XNsCZ66GU7vjxVDbs5xEQqXoSl7POCwtLzGQVZlLU9i0kWfHf3H/zq8SMSFaGLIR5PhFDmb4WOZDmuOVM4frgsG1\u002BfVGFT7jFUDKS9VYb1dXfGkD5\u002B/FgrY56ZEB74ligmXMW0xTV3otVEE63WV\u002BMwSgrrZhQc4MXFG2v9hgjtRxmThiUK\u002B/fvx1pMQmhtK7GgcCEWf\u002BLwSV\u002BQAo5sC47U8CwqsxQLJxgepwP5rbQhtdvtWsUQob0zp\u002BDSb5Na\u002BGQKSXRfX74XR1zAHmNEi0aCCrN2A68W\u002BmA3TNNhhEJ0KpPl34jgpgeLMcS9aOSrSawripaJClzFWfi0eQFu1200V97F21XDOOa6h\u002BNVQ3hz3zDFvBTZoqDuUKawZJYyhjQnJwdZWVnIs5qRYzFAVhNhc9c5UWi\u002Bz2K8AoO6BoPCNh4kA0Bs6Skx0lwqBB9mTJrR0VGMjY2hMFtFudMGiXsoEiTPKqoojwz/Q8tAfMfiGikoWjEu5nMa\u002BYB0Oa2guHbq6upQXV2NmrJivNtwAEdeKUV9RSEctj0UoyAzFgoXB4UlXvKSnQ\u002BSpkJubjWQXQs4joeRd2xkYGDgwvN9JRGiktQfcOKNqiKtb1L9QID7IgRFQhiyeGflseWNIcRNBYDzxEMYbbd6e3v9Pt/319rb24MZk2YnRNWJxWIataq4M4TRBZ61YQ7zWqI7deNPRjt\u002B6/r16x\u002BfPn36M4rdF2vs6vDKlStahdkN77/3DoqMDFtsim8i0p4vodJxJMgE4ZDppaWenwY8Z850hvklpz/FiOttEp7nQzgQWHjNrMxewHJvHtaH6HCOo9xTiwuq46iq5DT90XXph1N0NpF44gXBLzaefdVFnicfkVFyg7xDftLf38/MeRrAv34myNw5rW5IAAAAAElFTkSuQmCC",
+              "WhenOpened": "2024-11-26T13:34:05.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "AnsokuStartup.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py",
               "RelativeDocumentMoniker": "AnsokuStartup.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py",
               "RelativeToolTip": "AnsokuStartup.py",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAB8AAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAADUAAAAQAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd\u002BUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUdSURBVEhLvVbtS1tXHH5u3qqJTdT4hl2nVYO4unbKBsJW0IJrCcwP\u002B\u002BKYZaX7MnCFYXH9sj9g0MFY96nFL520bKzdhw6ck4lbsS\u002BbtdZ1BLU2SqbT1MT4rnm79\u002B45N7fTtDEpFPbAw8k5J/c89/md3/mdi/8VqqpK\u002Bs8kWK3WfSaTyap3nxcy6V9dXd1MdFMjpaDb7e5vbGw8SlF9JD0WFhawvr4eiEajX/T19V30\u002BXxr\u002BtQz2FWwq6vraG5urj6SHj09PVhZWVmm8OL09PSlwcHBryYmJjb06SQY9PaFUVlZmdvS0pJfXl7e1tDQ0Hnw4EGbPpUEo94mweVyfcCHD1gsFoyPjyMYDD7DUCiE/Px8SJKEyclJse\u002BgSHZFRcWeubm5Aj5bLMvyUCAQiOnLasjokG\u002BckmVlZZrY0ygpKdnb1tZWTWE3t6RdH/4PaQXFgsLlbnwCg8GAq1ev4uzZs\u002Bjs7MS5c\u002Bdsfr\u002B/nlMViX9sI20a8tjA4/HovWQYjUbU1NRoL9Xc3IympiZ9JgGv14uOjg69t42MDmtra1NSiAlRhYkeVQ2IqCZEYaYFi7afOyOwExn3cH5\u002BPiXDkSjG/Jv48b4f3/7\u002BN7pvTqN70IvLN734eXSWL2GE0\u002BnUV9lGWkERUnH4UzEumXBteAYzSxsYngrilwez6B3x4drtR7jY9xcGvSs4dPiwvtI2Moa0qKgoJSOKAfOhTVQU2ODIMkGRZahKXGtX1rcwMb\u002BGEyc/NLa2tiYdvYwOR0ZGUjImK/AvraH7xkOMzSyCZw5yXNEEZUX8llFUXGIoLS1NEkxb2hwOBxRF0caE27giwbsYxvzSpia4FYlxXiZVTPmXccszg9XNsCZ66GU7vjxVDbs5xEQqXoSl7POCwtLzGQVZlLU9i0kWfHf3H/zq8SMSFaGLIR5PhFDmb4WOZDmuOVM4frgsG1\u002BfVGFT7jFUDKS9VYb1dXfGkD5\u002B/FgrY56ZEB74ligmXMW0xTV3otVEE63WV\u002BMwSgrrZhQc4MXFG2v9hgjtRxmThiUK\u002B/fvx1pMQmhtK7GgcCEWf\u002BLwSV\u002BQAo5sC47U8CwqsxQLJxgepwP5rbQhtdvtWsUQob0zp\u002BDSb5Na\u002BGQKSXRfX74XR1zAHmNEi0aCCrN2A68W\u002BmA3TNNhhEJ0KpPl34jgpgeLMcS9aOSrSawripaJClzFWfi0eQFu1200V97F21XDOOa6h\u002BNVQ3hz3zDFvBTZoqDuUKawZJYyhjQnJwdZWVnIs5qRYzFAVhNhc9c5UWi\u002Bz2K8AoO6BoPCNh4kA0Bs6Skx0lwqBB9mTJrR0VGMjY2hMFtFudMGiXsoEiTPKqoojwz/Q8tAfMfiGikoWjEu5nMa\u002BYB0Oa2guHbq6upQXV2NmrJivNtwAEdeKUV9RSEctj0UoyAzFgoXB4UlXvKSnQ\u002BSpkJubjWQXQs4joeRd2xkYGDgwvN9JRGiktQfcOKNqiKtb1L9QID7IgRFQhiyeGflseWNIcRNBYDzxEMYbbd6e3v9Pt/319rb24MZk2YnRNWJxWIataq4M4TRBZ61YQ7zWqI7deNPRjt\u002B6/r16x\u002BfPn36M4rdF2vs6vDKlStahdkN77/3DoqMDFtsim8i0p4vodJxJMgE4ZDppaWenwY8Z850hvklpz/FiOttEp7nQzgQWHjNrMxewHJvHtaH6HCOo9xTiwuq46iq5DT90XXph1N0NpF44gXBLzaefdVFnicfkVFyg7xDftLf38/MeRrAv34myNw5rW5IAAAAAElFTkSuQmCC",
               "WhenOpened": "2024-11-25T23:01:34.606Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "GetImage.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GetImage.py",
               "RelativeDocumentMoniker": "GetImage.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GetImage.py",
               "RelativeToolTip": "GetImage.py",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA7AAAAAAAAAA==",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd\u002BUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUdSURBVEhLvVbtS1tXHH5u3qqJTdT4hl2nVYO4unbKBsJW0IJrCcwP\u002B\u002BKYZaX7MnCFYXH9sj9g0MFY96nFL520bKzdhw6ck4lbsS\u002BbtdZ1BLU2SqbT1MT4rnm79\u002B45N7fTtDEpFPbAw8k5J/c89/md3/mdi/8VqqpK\u002Bs8kWK3WfSaTyap3nxcy6V9dXd1MdFMjpaDb7e5vbGw8SlF9JD0WFhawvr4eiEajX/T19V30\u002BXxr\u002BtQz2FWwq6vraG5urj6SHj09PVhZWVmm8OL09PSlwcHBryYmJjb06SQY9PaFUVlZmdvS0pJfXl7e1tDQ0Hnw4EGbPpUEo94mweVyfcCHD1gsFoyPjyMYDD7DUCiE/Px8SJKEyclJse\u002BgSHZFRcWeubm5Aj5bLMvyUCAQiOnLasjokG\u002BckmVlZZrY0ygpKdnb1tZWTWE3t6RdH/4PaQXFgsLlbnwCg8GAq1ev4uzZs\u002Bjs7MS5c\u002Bdsfr\u002B/nlMViX9sI20a8tjA4/HovWQYjUbU1NRoL9Xc3IympiZ9JgGv14uOjg69t42MDmtra1NSiAlRhYkeVQ2IqCZEYaYFi7afOyOwExn3cH5\u002BPiXDkSjG/Jv48b4f3/7\u002BN7pvTqN70IvLN734eXSWL2GE0\u002BnUV9lGWkERUnH4UzEumXBteAYzSxsYngrilwez6B3x4drtR7jY9xcGvSs4dPiwvtI2Moa0qKgoJSOKAfOhTVQU2ODIMkGRZahKXGtX1rcwMb\u002BGEyc/NLa2tiYdvYwOR0ZGUjImK/AvraH7xkOMzSyCZw5yXNEEZUX8llFUXGIoLS1NEkxb2hwOBxRF0caE27giwbsYxvzSpia4FYlxXiZVTPmXccszg9XNsCZ66GU7vjxVDbs5xEQqXoSl7POCwtLzGQVZlLU9i0kWfHf3H/zq8SMSFaGLIR5PhFDmb4WOZDmuOVM4frgsG1\u002BfVGFT7jFUDKS9VYb1dXfGkD5\u002B/FgrY56ZEB74ligmXMW0xTV3otVEE63WV\u002BMwSgrrZhQc4MXFG2v9hgjtRxmThiUK\u002B/fvx1pMQmhtK7GgcCEWf\u002BLwSV\u002BQAo5sC47U8CwqsxQLJxgepwP5rbQhtdvtWsUQob0zp\u002BDSb5Na\u002BGQKSXRfX74XR1zAHmNEi0aCCrN2A68W\u002BmA3TNNhhEJ0KpPl34jgpgeLMcS9aOSrSawripaJClzFWfi0eQFu1200V97F21XDOOa6h\u002BNVQ3hz3zDFvBTZoqDuUKawZJYyhjQnJwdZWVnIs5qRYzFAVhNhc9c5UWi\u002Bz2K8AoO6BoPCNh4kA0Bs6Skx0lwqBB9mTJrR0VGMjY2hMFtFudMGiXsoEiTPKqoojwz/Q8tAfMfiGikoWjEu5nMa\u002BYB0Oa2guHbq6upQXV2NmrJivNtwAEdeKUV9RSEctj0UoyAzFgoXB4UlXvKSnQ\u002BSpkJubjWQXQs4joeRd2xkYGDgwvN9JRGiktQfcOKNqiKtb1L9QID7IgRFQhiyeGflseWNIcRNBYDzxEMYbbd6e3v9Pt/319rb24MZk2YnRNWJxWIataq4M4TRBZ61YQ7zWqI7deNPRjt\u002B6/r16x\u002BfPn36M4rdF2vs6vDKlStahdkN77/3DoqMDFtsim8i0p4vodJxJMgE4ZDppaWenwY8Z850hvklpz/FiOttEp7nQzgQWHjNrMxewHJvHtaH6HCOo9xTiwuq46iq5DT90XXph1N0NpF44gXBLzaefdVFnicfkVFyg7xDftLf38/MeRrAv34myNw5rW5IAAAAAElFTkSuQmCC",
-              "WhenOpened": "2024-11-24T06:09:33.402Z",
-              "EditorCaption": ""
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd\u002BUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAa4SURBVEhLjVZbc1PXFf72uUhH0pF18UW2hY2xMbWL0\u002BBC6IUyDDNM0mb8yl/oX\u002Bgj9P/w0Lc\u002BZSjTaZpkmg5NS9yaSwATI2RbRzo60tG57nxb2BnLgOmaWdo60jrrW/e9BI7QtWvXjGKxmCmXy3Ymk8nl83ktSZIRmeM0GAwQkzzPiyjrdTod/969ewn/kq8lSGma4\u002BfH5LXjgPb09HTlwoULy2NjY7O5XC5jmqZ28PcbFEURgiCQrusOCOTxebvdbr90HKd9586dgCLpUFDKDD8/4HlqBPDGjRuztVpt6fLlyxv08hJBbQIaB3\u002B/QWEYwvd9SYDO/v5\u002Bk95\u002B3u12/9nr9baePHni0NN4KCilwjF56iPKLMsystlsbmpqapI0V6lUirquZxiqA4nXJIQYMiMpqRy2bfcLhcKUCj89thuNhsWUPF5YWGiQwz8KoTwN1bu6\u002Bjik1dXVCj2buUSamZlZIXCZObWZyxwV/sgEyJVKJUY8l1MG0qg8eYyPJUbEpucB2WdeW1tbW8mjR49\u002BtPid\u002BVEeHD\u002BP8tHfCKLTiEy9Xh9fXl5eOnfu3BWev2TEfkJPx5Xo8AXSWwGPKnwfCaEpOSGlNDRNs/l1ht6eNwzjPH87Q8DygeiQ3unhceLLI6yIADAMfdgau3t7ePjwoba5uZnd2dkZZyHVmNMpyhQoqiwfWn8i4HGQo5ySE6khVsVn5qFZRSBTgLAKWr5Yydql8mG\u002BRwrz/wJM0/QYS8Ssu5DV7sOAYY\u002BjUl/E5MI51BdXMbe8gvrCWVQmJ1GsVg\u002B0vaYTAd\u002BVw4QR9YIUr9wIT5o9bL7s4t8vXNx/3sH97Q6fPfG9mwirOIlyaWJEyXtzeDSMhxwlKTqDBDudAFsNgm07\u002BPrJHr562CTv4l/PHDzdHyBbrIhq/TRu3bp1oO0EQKWYjT0sCE6PEXa7Hjr9ALuujxd7Hl45fTjdARzPR4u81/XhRVJUpma1Wr0ubt\u002B\u002BPdSn6ETAQ1Y5C\u002BIEvSBGqxditxti3wsIGqI3CDEII4TKuCBC3w9EjyyQ2DNTRv2n8/q50PnzWn//s1nZelx6J6AqeTY0CgUblfEqsnYVgVnCqyiHZ56GBvMXRgmqhQzGCyZKlg5TpxcyZlPGRiUfnK7lnU8nCs7vNZH\u002BwdCNT/p6sPreopHklBOwE0hst1kkewEeNft42uyi0fbg\u002Bj58DvGQN0fKmStkAlPEWl73bUtv1bOyuYbo1RVN\u002BldMU1w5MaSqBYIoptIQ2/s9PHjRwbcvHPz3ewcPdxw8fungu1dt7LRc5q8PDlB2d4KMHiOreTCThtCi53kE39VE2v9IS5PfvhPwsCVUrlXP\u002BWGCLoH7zFMcR7CMGNPFGCu1EGuzIT48FWF9PsbPyetzAyxOeLANh2PB4bXS4XSIalKmS\u002B8NqZqVknbHqnDCGBGLQxcJ8yapNMHFuQC/WAjwq8UAv14Mh\u002BdHCz0sT3Rhmy4M6fIa9jhr4zJkMnMiIIfwcFZmDE4TTUATqihS5MwEy1MJPfGxfmoP6/VdXJhVZxM/m2nibHUXtXwLpuxCkwMCqns4ZbxF/0RAlUcVWF2TsLhp2FmdoVQncHpcYmkywJlKBwvlNhYqijuYL7UxXXAxlunBEGr4MakyE1LZLlLx/MSiUY0fR7yo45AKBGbLFqaKWVTzJttBoJhVFRmyhkN6EpB5cpyrwmFCaG0mkWIslEa1kybiG\u002Bbms7cCKrBD0hlKy9QxVbKwPDOGD\u002BYrWJurYLqUZY7YrwQRaUD1BOLtIZCF0O1UGOM9adQbqT69Gcrql0lsfB7G6d/eAFReKVKgqvmzGRN2IYf6uD0Eu7o6jSsr06hX88jRa8HUII0YOPWesmBMQp9IkT3jyMLl/4WZi3/tyvN/2uuX7z5rul\u002BM7DRnz54t8P4qcp\u002BZ42OBfdjjVtbmotTq9/st3\u002B\u002B1Qt9vabLvFrN\u002BlBVtqSW7BlKf00FthQowk0IrBgmKT\u002BO08lWY5r4eDPT7UWTs7LtWZwRwaWlJbVsWF6cyty\u002B1Au5z52zy9m60207DbbcbXbfdkLHXqpb00NK73MecHL0kIFnLciEsRNDKbpTmvvX87F3fD\u002B9/\u002BZ/e5m\u002Bub3jz8/PRyF21sbGRVx6ura3NcXubILDaU94Ie23Csj48Pz5ZzvVXdLgX2V91pmBCCJM9kGlKYX4TRtoXPU/7CwP9Ymb5d3vs6WFhjADevHlTf/Dggb6\u002Bvm4Rx\u002BQi9Naiunr1krXxyeXJUqlw0RC4wWVjlT/Pc/B6VPmU4HeTNP27s9v9x2A7dM9cv05DFAE/AJS\u002Bm7e/hz33AAAAAElFTkSuQmCC",
+              "WhenOpened": "2024-11-24T06:09:33.402Z"
             },
             {
               "$type": "Document",
@@ -62,20 +82,20 @@
               "RelativeDocumentMoniker": "PuzzleDetection.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py",
               "RelativeToolTip": "PuzzleDetection.py",
-              "ViewState": "AgIAAHQAAAAAAAAAAAAYwIkAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAM8AAAAAAAAAAAAkwNwAAAA6AAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd\u002BUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUdSURBVEhLvVbtS1tXHH5u3qqJTdT4hl2nVYO4unbKBsJW0IJrCcwP\u002B\u002BKYZaX7MnCFYXH9sj9g0MFY96nFL520bKzdhw6ck4lbsS\u002BbtdZ1BLU2SqbT1MT4rnm79\u002B45N7fTtDEpFPbAw8k5J/c89/md3/mdi/8VqqpK\u002Bs8kWK3WfSaTyap3nxcy6V9dXd1MdFMjpaDb7e5vbGw8SlF9JD0WFhawvr4eiEajX/T19V30\u002BXxr\u002BtQz2FWwq6vraG5urj6SHj09PVhZWVmm8OL09PSlwcHBryYmJjb06SQY9PaFUVlZmdvS0pJfXl7e1tDQ0Hnw4EGbPpUEo94mweVyfcCHD1gsFoyPjyMYDD7DUCiE/Px8SJKEyclJse\u002BgSHZFRcWeubm5Aj5bLMvyUCAQiOnLasjokG\u002BckmVlZZrY0ygpKdnb1tZWTWE3t6RdH/4PaQXFgsLlbnwCg8GAq1ev4uzZs\u002Bjs7MS5c\u002Bdsfr\u002B/nlMViX9sI20a8tjA4/HovWQYjUbU1NRoL9Xc3IympiZ9JgGv14uOjg69t42MDmtra1NSiAlRhYkeVQ2IqCZEYaYFi7afOyOwExn3cH5\u002BPiXDkSjG/Jv48b4f3/7\u002BN7pvTqN70IvLN734eXSWL2GE0\u002BnUV9lGWkERUnH4UzEumXBteAYzSxsYngrilwez6B3x4drtR7jY9xcGvSs4dPiwvtI2Moa0qKgoJSOKAfOhTVQU2ODIMkGRZahKXGtX1rcwMb\u002BGEyc/NLa2tiYdvYwOR0ZGUjImK/AvraH7xkOMzSyCZw5yXNEEZUX8llFUXGIoLS1NEkxb2hwOBxRF0caE27giwbsYxvzSpia4FYlxXiZVTPmXccszg9XNsCZ66GU7vjxVDbs5xEQqXoSl7POCwtLzGQVZlLU9i0kWfHf3H/zq8SMSFaGLIR5PhFDmb4WOZDmuOVM4frgsG1\u002BfVGFT7jFUDKS9VYb1dXfGkD5\u002B/FgrY56ZEB74ligmXMW0xTV3otVEE63WV\u002BMwSgrrZhQc4MXFG2v9hgjtRxmThiUK\u002B/fvx1pMQmhtK7GgcCEWf\u002BLwSV\u002BQAo5sC47U8CwqsxQLJxgepwP5rbQhtdvtWsUQob0zp\u002BDSb5Na\u002BGQKSXRfX74XR1zAHmNEi0aCCrN2A68W\u002BmA3TNNhhEJ0KpPl34jgpgeLMcS9aOSrSawripaJClzFWfi0eQFu1200V97F21XDOOa6h\u002BNVQ3hz3zDFvBTZoqDuUKawZJYyhjQnJwdZWVnIs5qRYzFAVhNhc9c5UWi\u002Bz2K8AoO6BoPCNh4kA0Bs6Skx0lwqBB9mTJrR0VGMjY2hMFtFudMGiXsoEiTPKqoojwz/Q8tAfMfiGikoWjEu5nMa\u002BYB0Oa2guHbq6upQXV2NmrJivNtwAEdeKUV9RSEctj0UoyAzFgoXB4UlXvKSnQ\u002BSpkJubjWQXQs4joeRd2xkYGDgwvN9JRGiktQfcOKNqiKtb1L9QID7IgRFQhiyeGflseWNIcRNBYDzxEMYbbd6e3v9Pt/319rb24MZk2YnRNWJxWIataq4M4TRBZ61YQ7zWqI7deNPRjt\u002B6/r16x\u002BfPn36M4rdF2vs6vDKlStahdkN77/3DoqMDFtsim8i0p4vodJxJMgE4ZDppaWenwY8Z850hvklpz/FiOttEp7nQzgQWHjNrMxewHJvHtaH6HCOo9xTiwuq46iq5DT90XXph1N0NpF44gXBLzaefdVFnicfkVFyg7xDftLf38/MeRrAv34myNw5rW5IAAAAAElFTkSuQmCC",
               "WhenOpened": "2024-11-20T10:09:45.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "AnsokuBotUI.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py",
               "RelativeDocumentMoniker": "AnsokuBotUI.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py",
               "RelativeToolTip": "AnsokuBotUI.py",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAADUBAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAAAHYBAAAkAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd\u002BUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUdSURBVEhLvVbtS1tXHH5u3qqJTdT4hl2nVYO4unbKBsJW0IJrCcwP\u002B\u002BKYZaX7MnCFYXH9sj9g0MFY96nFL520bKzdhw6ck4lbsS\u002BbtdZ1BLU2SqbT1MT4rnm79\u002B45N7fTtDEpFPbAw8k5J/c89/md3/mdi/8VqqpK\u002Bs8kWK3WfSaTyap3nxcy6V9dXd1MdFMjpaDb7e5vbGw8SlF9JD0WFhawvr4eiEajX/T19V30\u002BXxr\u002BtQz2FWwq6vraG5urj6SHj09PVhZWVmm8OL09PSlwcHBryYmJjb06SQY9PaFUVlZmdvS0pJfXl7e1tDQ0Hnw4EGbPpUEo94mweVyfcCHD1gsFoyPjyMYDD7DUCiE/Px8SJKEyclJse\u002BgSHZFRcWeubm5Aj5bLMvyUCAQiOnLasjokG\u002BckmVlZZrY0ygpKdnb1tZWTWE3t6RdH/4PaQXFgsLlbnwCg8GAq1ev4uzZs\u002Bjs7MS5c\u002Bdsfr\u002B/nlMViX9sI20a8tjA4/HovWQYjUbU1NRoL9Xc3IympiZ9JgGv14uOjg69t42MDmtra1NSiAlRhYkeVQ2IqCZEYaYFi7afOyOwExn3cH5\u002BPiXDkSjG/Jv48b4f3/7\u002BN7pvTqN70IvLN734eXSWL2GE0\u002BnUV9lGWkERUnH4UzEumXBteAYzSxsYngrilwez6B3x4drtR7jY9xcGvSs4dPiwvtI2Moa0qKgoJSOKAfOhTVQU2ODIMkGRZahKXGtX1rcwMb\u002BGEyc/NLa2tiYdvYwOR0ZGUjImK/AvraH7xkOMzSyCZw5yXNEEZUX8llFUXGIoLS1NEkxb2hwOBxRF0caE27giwbsYxvzSpia4FYlxXiZVTPmXccszg9XNsCZ66GU7vjxVDbs5xEQqXoSl7POCwtLzGQVZlLU9i0kWfHf3H/zq8SMSFaGLIR5PhFDmb4WOZDmuOVM4frgsG1\u002BfVGFT7jFUDKS9VYb1dXfGkD5\u002B/FgrY56ZEB74ligmXMW0xTV3otVEE63WV\u002BMwSgrrZhQc4MXFG2v9hgjtRxmThiUK\u002B/fvx1pMQmhtK7GgcCEWf\u002BLwSV\u002BQAo5sC47U8CwqsxQLJxgepwP5rbQhtdvtWsUQob0zp\u002BDSb5Na\u002BGQKSXRfX74XR1zAHmNEi0aCCrN2A68W\u002BmA3TNNhhEJ0KpPl34jgpgeLMcS9aOSrSawripaJClzFWfi0eQFu1200V97F21XDOOa6h\u002BNVQ3hz3zDFvBTZoqDuUKawZJYyhjQnJwdZWVnIs5qRYzFAVhNhc9c5UWi\u002Bz2K8AoO6BoPCNh4kA0Bs6Skx0lwqBB9mTJrR0VGMjY2hMFtFudMGiXsoEiTPKqoojwz/Q8tAfMfiGikoWjEu5nMa\u002BYB0Oa2guHbq6upQXV2NmrJivNtwAEdeKUV9RSEctj0UoyAzFgoXB4UlXvKSnQ\u002BSpkJubjWQXQs4joeRd2xkYGDgwvN9JRGiktQfcOKNqiKtb1L9QID7IgRFQhiyeGflseWNIcRNBYDzxEMYbbd6e3v9Pt/319rb24MZk2YnRNWJxWIataq4M4TRBZ61YQ7zWqI7deNPRjt\u002B6/r16x\u002BfPn36M4rdF2vs6vDKlStahdkN77/3DoqMDFtsim8i0p4vodJxJMgE4ZDppaWenwY8Z850hvklpz/FiOttEp7nQzgQWHjNrMxewHJvHtaH6HCOo9xTiwuq46iq5DT90XXph1N0NpF44gXBLzaefdVFnicfkVFyg7xDftLf38/MeRrAv34myNw5rW5IAAAAAElFTkSuQmCC",
               "WhenOpened": "2024-11-20T02:50:23.799Z",
               "EditorCaption": ""

@@ -1067,6 +1067,7 @@
     <Compile Include="env\Lib\site-packages\_distutils_hack\__init__.py" />
     <Compile Include="GetImage.py" />
     <Compile Include="AnsokuBotUI.py" />
+    <Compile Include="GridSystems.py" />
     <Compile Include="PuzzleDetection.py" />
   </ItemGroup>
   <ItemGroup>

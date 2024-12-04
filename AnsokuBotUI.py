@@ -1,5 +1,4 @@
 import time
-from turtle import width
 import customtkinter
 from customtkinter import CTkFont  # Import CTkFont
 import tkinter
@@ -80,21 +79,30 @@ class ConsoleRedirect:
 
         # Define color mappings
         self.foreground_color_map = {
-            '31': ('#ff5555', 'Red'),      # Red
-            '32': ('#50fa7b', 'Green'),    # Green
-            '33': ('#f1fa8c', 'Yellow'),   # Yellow
-            '34': ('#bd93f9', 'Blue'),     # Blue
-            '35': ('#ff79c6', 'Magenta'),  # Magenta
-            '36': ('#8be9fd', 'Cyan'),     # Cyan
-            '37': ('#f8f8f2', 'White'),    # White
+            '30': ('#000000', 'Black'),            # Black
+            '31': ('#ff5555', 'Red'),              # Red
+            '32': ('#50fa7b', 'Green'),            # Green
+            '33': ('#f1fa8c', 'Yellow'),           # Yellow
+            '34': ('#bd93f9', 'Blue'),             # Blue
+            '35': ('#ff79c6', 'Magenta'),          # Magenta
+            '36': ('#8be9fd', 'Cyan'),             # Cyan
+            '37': ('#f8f8f2', 'White'),            # White
+            '90': ('#4d4d4d', 'LightBlack'),       # Light Black (Bright Black / Gray)
+            '91': ('#ff6e6e', 'LightRed'),         # Light Red
+            '92': ('#69ff94', 'LightGreen'),       # Light Green
+            '93': ('#ffffa5', 'LightYellow'),      # Light Yellow
+            '94': ('#d6acff', 'LightBlue'),        # Light Blue
+            '95': ('#ff92df', 'LightMagenta'),     # Light Magenta
+            '96': ('#a4ffff', 'LightCyan'),        # Light Cyan
+            '97': ('#ffffff', 'BrightWhite'),      # Bright White
         }
 
         # Initialize current text attributes
-        self.current_foreground = None
+        self.current_foreground_name = None
 
-        # Configure all color tags
+        # Configure all color tags using color names
         for code, (color, name) in self.foreground_color_map.items():
-            tag_name = f'fg_{color}'
+            tag_name = f'fg_{name}'
             tag_config = {'foreground': color, 'font': self.console_font}
             self.text_widget.tag_configure(tag_name, **tag_config)
 
@@ -116,9 +124,9 @@ class ConsoleRedirect:
                 ansi_codes = match.group(1).split(';')
                 for code in ansi_codes:
                     if code == '0':
-                        self.current_foreground = None
+                        self.current_foreground_name = None
                     elif code in self.foreground_color_map:
-                        self.current_foreground = self.foreground_color_map[code][0]
+                        self.current_foreground_name = self.foreground_color_map[code][1]
                 pos = end
             if pos < len(message):
                 text = message[pos:]
@@ -131,8 +139,8 @@ class ConsoleRedirect:
         self.text_widget.after(0, append)
 
     def get_tag_name(self):
-        if self.current_foreground:
-            return f'fg_{self.current_foreground}'
+        if self.current_foreground_name:
+            return f'fg_{self.current_foreground_name}'
         return None
 
     def readline(self):
@@ -142,6 +150,64 @@ class ConsoleRedirect:
 
     def flush(self):
         pass
+
+class CustomDropdown(customtkinter.CTkFrame):
+    def __init__(self, master, options, variable, **kwargs):
+        super().__init__(master, **kwargs)
+        self.options = options
+        self.variable = variable  # StringVar passed from App
+
+        self.button = customtkinter.CTkButton(
+            self, 
+            textvariable=self.variable, 
+            command=self.toggle_dropdown,
+            anchor='w',  # Align text to the left
+            width=150  # Set a reasonable width
+        )
+        self.button.pack(fill='x')
+
+        self.dropdown_frame = customtkinter.CTkFrame(self, fg_color="#2F2F2F")
+        self.dropdown_visible = False
+
+        # Initially populate dropdown without duplication
+        self.populate_dropdown()
+
+        # Trace the variable to update dropdown when selection changes
+        self.variable.trace('w', self.on_selection_change)
+
+    def populate_dropdown(self):
+        # Clear existing buttons
+        for widget in self.dropdown_frame.winfo_children():
+            widget.destroy()
+
+        # Add buttons excluding the currently selected option
+        for option in self.options:
+            if option != self.variable.get():
+                option_button = customtkinter.CTkButton(
+                    self.dropdown_frame,
+                    text=option,
+                    command=lambda opt=option: self.select_option(opt),
+                    anchor='w',  # Align text to the left
+                    width=self.button.winfo_width()  # Match the main button's width
+                )
+                option_button.pack(fill='x')
+
+    def toggle_dropdown(self):
+        if self.dropdown_visible:
+            self.dropdown_frame.pack_forget()
+            self.dropdown_visible = False
+        else:
+            self.populate_dropdown()  # Repopulate dropdown to exclude selected option
+            self.dropdown_frame.pack(fill='x')
+            self.dropdown_visible = True
+
+    def select_option(self, option):
+        self.variable.set(option)
+        self.toggle_dropdown()
+
+    def on_selection_change(self, *args):
+        if self.dropdown_visible:
+            self.populate_dropdown()
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -197,16 +263,21 @@ class App(customtkinter.CTk):
         self.input_queue = Queue()
         self.console.input_handler = InputHandler(self, self.console, self.input_queue)
 
-        # Dropdown menu to filter console output by color
+        # Create a frame for row=1 to hold the filter_dropdown and the spacer
+        self.filter_frame = customtkinter.CTkFrame(self.main_frame, fg_color='#1e1e1e')
+        self.filter_frame.grid(row=1, column=0, columnspan=3, sticky='ew', padx=10, pady=10)
+        self.filter_frame.grid_columnconfigure(0, weight=0)  # filter_dropdown column
+        self.filter_frame.grid_columnconfigure(1, weight=1)  # Spacer column
+
+        # Custom Dropdown menu to filter console output by color
         self.filter_var = tkinter.StringVar(value='Any')
-        self.filter_dropdown = customtkinter.CTkOptionMenu(
-            self.main_frame, 
-            variable=self.filter_var, 
-            values=['Any', 'Green', 'Yellow', 'Red', 'Blue'],
-            width=150,  # Initial width; will adjust on resize
-            font=self.ctk_font  # Use customtkinter font
+        self.filter_dropdown = CustomDropdown(
+            self.filter_frame, 
+            options=['Any', 'Green', 'Yellow', 'Red', 'Blue', 'Light'],
+            variable=self.filter_var,  # Pass the StringVar
+            fg_color="#1e1e1e"
         )
-        self.filter_dropdown.grid(row=1, column=0, sticky='ew', padx=10, pady=10)
+        self.filter_dropdown.grid(row=0, column=0, sticky='w')  # Align to the west
 
         # Initialize ConsoleRedirect
         self.console_redirect = ConsoleRedirect(self.console, self.input_queue, self.text_font, self.filter_var)  # Use tkinter font
@@ -281,7 +352,8 @@ class App(customtkinter.CTk):
         # Initialize a flag to prevent multiple threads
         self.AnsokuENV_thread = None
 
-        #self.start_AnsokuENV_output()
+        # Uncomment the following line to start the AnsokuENV output automatically
+        # self.start_AnsokuENV_output()
 
     def initialize_window_handle(self):
         try:
@@ -315,7 +387,6 @@ class App(customtkinter.CTk):
         finally:
             # Re-enable the Run button if the bot_output thread finishes
             self.run_button.configure(state='normal')
-
 
     def display_image(self, img, crop_box=None):
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -361,6 +432,7 @@ class App(customtkinter.CTk):
     def on_resize(self, event):
         if event.widget == self:
             self.update_font_size()
+            # No need to call on_parent_resize since we removed it to prevent flickering
 
     def update_font_size(self):
         width = self.winfo_width()
@@ -370,7 +442,8 @@ class App(customtkinter.CTk):
             self.text_font.configure(size=new_font_size)  # Update tkinter font
             self.ctk_font.configure(size=new_font_size)   # Update customtkinter font
             self.console.configure(font=self.text_font)    # Apply updated tkinter font
-            self.filter_dropdown.configure(font=self.ctk_font)  # Apply updated customtkinter font
+            # Update other widgets if necessary
+            # Note: CustomDropdown handles its own resizing
 
     def on_closing(self):
         self.destroy()
@@ -384,16 +457,54 @@ class App(customtkinter.CTk):
 
     def update_filter(self, *args):
         filter_value = self.filter_var.get()
+
+        # Define which tags are considered "Light"
+        light_colors = ['LightBlack', 'LightRed', 'LightGreen', 'LightYellow', 
+                        'LightBlue', 'LightMagenta', 'LightCyan', 'BrightWhite', 'White']
+        green_colors = ['Green', 'LightGreen']
+        red_colors = ['Red', 'LightRed']           # Added LightRed to Red filter
+        yellow_colors = ['Yellow', 'LightYellow'] # Added LightYellow to Yellow filter
+        blue_colors = ['Blue', 'LightBlue']        # Added LightBlue to Blue filter
+
         # Iterate through color tags
         for code, (color, name) in self.console_redirect.foreground_color_map.items():
-            tag_name = f'fg_{color}'
+            tag_name = f'fg_{name}'
             if name == 'White':
                 # Always show White messages
                 self.console.tag_configure(tag_name, elide=False)
-            elif filter_value == 'Any' or name == filter_value:
+                continue  # Skip further filtering for White
+            if filter_value == 'Any':
+                # Show all messages except White is already handled
                 self.console.tag_configure(tag_name, elide=False)
+            elif filter_value == 'Light':
+                if name in light_colors:
+                    self.console.tag_configure(tag_name, elide=False)
+                else:
+                    self.console.tag_configure(tag_name, elide=True)
+            elif filter_value == 'Green':
+                if name in green_colors:
+                    self.console.tag_configure(tag_name, elide=False)
+                else:
+                    self.console.tag_configure(tag_name, elide=True)
+            elif filter_value == 'Red':
+                if name in red_colors:
+                    self.console.tag_configure(tag_name, elide=False)
+                else:
+                    self.console.tag_configure(tag_name, elide=True)
+            elif filter_value == 'Yellow':
+                if name in yellow_colors:
+                    self.console.tag_configure(tag_name, elide=False)
+                else:
+                    self.console.tag_configure(tag_name, elide=True)
+            elif filter_value == 'Blue':
+                if name in blue_colors:
+                    self.console.tag_configure(tag_name, elide=False)
+                else:
+                    self.console.tag_configure(tag_name, elide=True)
             else:
+                # For any other filter values, hide all
                 self.console.tag_configure(tag_name, elide=True)
+
         # Ensure 'input' tag is always visible
         self.console.tag_configure('input', elide=False)
 
