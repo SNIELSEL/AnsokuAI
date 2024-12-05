@@ -3091,6 +3091,8 @@
     <Folder Include="env\Lib\site-packages\_distutils_hack\" />
     <Folder Include="env\Lib\site-packages\_distutils_hack\__pycache__\" />
     <Folder Include="env\Scripts\" />
+    <Folder Include="Logs\" />
+    <Folder Include="Models\" />
     <Folder Include="PuzzlePieces\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

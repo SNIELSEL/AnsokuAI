@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+Models/
+logs/
 .vs/
 .Python
 build/

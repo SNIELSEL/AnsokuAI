@@ -1,13 +1,25 @@
+from turtle import done
 from selenium.webdriver.common.action_chains import ActionChains
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.env_checker import check_env
 from selenium.webdriver.common.keys import Keys
 from colorama import init, Fore, Back, Style
-from GetImage import GetGameImage
+from stable_baselines3 import PPO
+from stable_baselines3 import A2C
+from colorama import Fore
+from tensorboard import program
 from selenium import webdriver
 from webbrowser import Chrome
+from GetImage import GetGameImage
+import gymnasium as gym
 import pyautogui
 import win32gui
-import time
 import os
+import time
+
+model_name = "PPO"
+models_dir = f"Models/{model_name}"
+logdir = "Logs/"
 
 def StartAI(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance):
     toplist, winlist = [], []
@@ -19,7 +31,13 @@ def StartAI(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance):
     if not chrome:
         StartupAnsokuWindow(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance)
     else:
-        GetGameImage(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance)
+        print(Fore.RED + "Already a Window open please close it first and try again")
+
+def launch_tensorboard(logdir):
+    tb = program.TensorBoard()
+    tb.configure(argv=[None, '--logdir', logdir])
+    url = tb.launch()
+    print(f"TensorBoard is running at {url}")
 
 
 def StartupAnsokuWindow(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance):
@@ -31,11 +49,9 @@ def StartupAnsokuWindow(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance):
     options.add_experimental_option("excludeSwitches",["enable-automation"])
     options.add_argument(r"user-data-dir=C:/Users/{Username}/AppData/Local/Google/Chrome/User Data")
 
-    # Initialize the Chrome driver
     service = webdriver.ChromeService(executable_path=os.getcwd() + "/Driver/chromedriver.exe")
     driver = webdriver.Chrome(service=service, options=options)
 
-    # Navigate to the desired URL
     driver.get("https://ansoku.app/game.php")
 
     pyautogui.press('f11')
@@ -43,14 +59,24 @@ def StartupAnsokuWindow(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance):
     EnterPlayState(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance)
 
 def EnterPlayState(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance):
-    time.sleep(6)
-
+    time.sleep(9)
     pyautogui.click(1280,1240)
-
     time.sleep(0.3)
-
     pyautogui.click(1280,820)
-
     time.sleep(5)
+    pyautogui.click(1280,1240)
+    time.sleep(0.5)
 
     GetGameImage(puzzlePieceFolder, chromeTabTitle, hwnd, gui_Instance)
+    
+def StartMachineLearningAgent(board_gridcell_values):
+    
+    if not os.path.exists(models_dir):
+        os.makedirs(models_dir)
+
+    if not os.path.exists(logdir):
+        os.makedirs(logdir)
+
+    import threading
+    tb_thread = threading.Thread(target=launch_tensorboard, args=(logdir,), daemon=True)
+    tb_thread.start()
