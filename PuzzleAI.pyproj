@@ -1068,7 +1068,9 @@
     <Compile Include="GetImage.py" />
     <Compile Include="AnsokuBotUI.py" />
     <Compile Include="GridSystems.py" />
+    <Compile Include="MachineLearningEnvoirement.py" />
     <Compile Include="PuzzleDetection.py" />
+    <Compile Include="SharedData.py" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
@@ -1082,6 +1084,8 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
     <Content Include="Driver\chromedriver.exe" />
     <Content Include="Driver\LICENSE.chromedriver" />
     <Content Include="Driver\THIRD_PARTY_NOTICES.chromedriver" />
@@ -2732,6 +2736,7 @@
     <Content Include="env\Scripts\pip3.exe" />
     <Content Include="env\Scripts\python.exe" />
     <Content Include="env\Scripts\pythonw.exe" />
+    <Content Include="Models\PPO\AnsokuModel.zip" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.10" />
@@ -3093,6 +3098,7 @@
     <Folder Include="env\Scripts\" />
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
+    <Folder Include="Models\PPO\" />
     <Folder Include="PuzzlePieces\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

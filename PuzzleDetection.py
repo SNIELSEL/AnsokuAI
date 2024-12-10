@@ -22,7 +22,7 @@ font = cv.FONT_HERSHEY_TRIPLEX
 font_scale = 0.3
 thickness = 1
 
-def SearchForPuzzlePieces(ImageFolder, scanImage,gui_hnwd, gui_Instance):
+def SearchForPuzzlePieces(ImageFolder, scanImage, gui_Instance):
 
     currentPuzzlePieces = dict(puzzlePiece_left = "Empty", puzzlePiece_middle = "Empty", puzzlePiece_right = "Empty")
     image_variants = []
@@ -267,6 +267,8 @@ def SearchForPuzzleOnGrid(original_img, cvImage):
 
     from AnsokuStartup import StartMachineLearningAgent
     StartMachineLearningAgent(board_gridcell_values)
+
+    #print(Fore.MAGENTA + str(board_gridcell_values))
 
     return cvImage
 

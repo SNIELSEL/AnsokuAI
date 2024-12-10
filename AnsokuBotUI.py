@@ -369,6 +369,10 @@ class App(customtkinter.CTk):
         if self.AnsokuENV_thread and self.AnsokuENV_thread.is_alive():
             print(Fore.YELLOW + "Bot is already running.")
             return
+
+        import SharedData
+        SharedData.hwnd = self.hwnd
+        SharedData.id = self
         self.run_button.configure(state='disabled')
         self.AnsokuENV_thread = threading.Thread(target=self.AnsokuENV_output, daemon=True)
         self.AnsokuENV_thread.start()
@@ -380,7 +384,7 @@ class App(customtkinter.CTk):
 
             from AnsokuStartup import StartAI
             sys.modules['AnsokuStartup'].console_redirect = sys.stdout
-            StartAI(puzzlePieceFolder, chromeTabTitle, self.hwnd, self)
+            StartAI(puzzlePieceFolder, chromeTabTitle)
 
         except Exception as e:
             print(Fore.RED + f"An error occurred: {e}")
