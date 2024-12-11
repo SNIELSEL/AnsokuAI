@@ -22,6 +22,8 @@ font = cv.FONT_HERSHEY_TRIPLEX
 font_scale = 0.3
 thickness = 1
 
+currentPuzzlePieces = None
+
 def SearchForPuzzlePieces(ImageFolder, scanImage, gui_Instance):
 
     currentPuzzlePieces = dict(puzzlePiece_left = "Empty", puzzlePiece_middle = "Empty", puzzlePiece_right = "Empty")
@@ -140,6 +142,8 @@ def SearchForPuzzlePieces(ImageFolder, scanImage, gui_Instance):
         elif variant_img == image_variants[2]:
             currentPuzzlePieces["puzzlePiece_right"] = mostMatchingPiece.get("name");
 
+    import SharedData
+    SharedData.currentPuzzlePieces = currentPuzzlePieces
 
     original_img_grid = SearchForPuzzleOnGrid(scanImage, original_img)
 
