@@ -21,5 +21,5 @@ def GetGameImage(imageFolder, chromeTabTitle):
     SharedData.screen_img = ImageGrab.grab(full_screen_bbox)
 
     time.sleep(0.5)
-
+   
     return ImageGrab.grab(full_screen_bbox)

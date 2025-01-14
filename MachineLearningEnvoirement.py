@@ -3,7 +3,6 @@ from math import fabs
 from time import sleep
 import time
 import gymnasium as gym
-import numpy as np
 from gymnasium import spaces
 import ctypes
 import win32api
@@ -51,8 +50,14 @@ class AnsokuEnv(gym.Env):
         self.getPuzzleNames()
 
         self.observation_space = spaces.MultiDiscrete(
-            [2] * len(self.board_data) + [2560, 1440] + [2] + [2] + [2] + [2] + [2] + [2] + [2] + [self.num_pieces] * 3
+            [2] * len(self.board_data) + [2560, 1440] +              
+            [1135 + 1, 1130 + 1] +       
+            [1336 + 1, 1130 + 1] +      
+            [1430 + 1, 1130 + 1] +       
+            [2, 2, 2, 2, 2, 2, 2] +       
+            [self.num_pieces] * 3 
         )
+
         
         encoded_board = [
         0 if value == 'empty' else 1
@@ -72,10 +77,10 @@ class AnsokuEnv(gym.Env):
         self.placed_mid = False
         self.placed_right = False
 
-        self.holdingPiece_time = 0
         self.holdingPiece_bool = False
         self.stepsAfterPickup = 0
         self.startup = True
+        self.external_rewards = 0
 
     def get_mouse_position(self):
         class POINT(ctypes.Structure):
@@ -86,10 +91,16 @@ class AnsokuEnv(gym.Env):
         return pt.x, pt.y
 
     def move_relative(self, dx, dy):
-        current_x, current_y = self.get_mouse_position()
-        new_x = max(915, min(current_x + dx, 1640))
-        new_y = max(70, min(current_y + dy, 1250))
-        ctypes.windll.user32.SetCursorPos(new_x, new_y + dy)
+
+        mouseX, mouseY = self.get_mouse_position()
+        if (918 <= mouseX <= 1637 and 73 <= mouseY <= 1367):
+            current_x, current_y = self.get_mouse_position()
+            new_x = max(915, min(current_x + dx, 1640))
+            new_y = max(70, min(current_y + dy, 1370))
+            ctypes.windll.user32.SetCursorPos(new_x, new_y + dy)
+        else:
+            self.external_rewards -= 5
+            pyautogui.click(1280,1240)
 
 
     def step(self, action):
@@ -123,6 +134,35 @@ class AnsokuEnv(gym.Env):
             GetGameImage(SharedData.puzzlePiece_folder,SharedData.chrome_titel)
 
             import SharedData as verificationData
+
+            puzzlePiece_img = cv.imread("PuzzlePieces/GameOver.png", cv.IMREAD_REDUCED_COLOR_2)
+
+            img_check = np.array(verificationData.screen_img)
+            img_check = cv.cvtColor(img_check, cv.COLOR_RGB2BGR)
+
+            original_height, original_width = puzzlePiece_img.shape[:2]
+            new_width, new_height = original_width // 2, original_height // 2
+            puzzlePiece_img = cv.resize(puzzlePiece_img, (new_width, new_height))
+
+            original_height, original_width = img_check.shape[:2]
+            new_width, new_height = original_width // 2, original_height // 2
+            img_check = cv.resize(img_check, (new_width, new_height))
+
+            result = cv.matchTemplate(img_check, puzzlePiece_img, cv.TM_CCOEFF_NORMED)
+            min_val, max_val, min_loc, max_loc = cv.minMaxLoc(result)
+
+            print(Fore.GREEN + "Match value = " + str(max_val) + Fore.WHITE)
+
+            matchingImageThreshold = 0.76
+            if(max_val >= matchingImageThreshold):
+                verificationData.terminated = True
+            else:
+                verificationData.terminated = False
+
+            #image info for debugging
+            #cv.imshow("fullscreen", img_check)
+            #cv.imshow("Gameover", puzzlePiece_img)
+            #cv.waitKey()
 
             img = verificationData.screen_img
             for i, rects in enumerate(verificationData.image_variants, 1):
@@ -259,11 +299,12 @@ class AnsokuEnv(gym.Env):
         
             case 8:
                 #LeftMouseDown
-                if 930 <= mouseX <= 1110 and 65 <= mouseY <= 420:
+                #checks if clicking on the options button or rotate/undo and if then give negative reward and else releases mouse
+                if (930 <= mouseX <= 1100 and 65 <= mouseY <= 420) or (1490 <= mouseX <= 1640 and 260 <= mouseY <= 440):
                     actionReward -= 0.1
                 else:
                     if not self.hold_left and not self.hold_mid and not self.hold_right:
-                        if 1050 <= mouseX <= 1510 and 950 <= mouseY <= 1225:
+                        if 1070 <= mouseX <= 1500 and 1042 <= mouseY <= 1215:
                             #checks if inside a rectangle of the left puzzle piece and if it is it hold the puzzle piece
                             if 1130 <= mouseX <= 1140 and 1120 <= mouseY <= 1140 and not self.placed_left:
                                 actionReward += 5
@@ -271,7 +312,6 @@ class AnsokuEnv(gym.Env):
                                 self.hold_left = True;
                                 self.holdingPiece_bool = True
 
-                                self.holdingPiece_time = time.time()
                                 ctypes.windll.user32.mouse_event(self.leftdown, 0, 0, 0, 0)
                             #checks if inside a rectangle of the middle puzzle piece and if it is it hold the puzzle piece
                             elif 1279 <= mouseX <= 1393 and 1122 <= mouseY <= 1138 and not self.placed_mid:
@@ -279,8 +319,6 @@ class AnsokuEnv(gym.Env):
 
                                 self.hold_mid = True;
                                 self.holdingPiece_bool = True
-
-                                self.holdingPiece_time = time.time()
 
                                 ctypes.windll.user32.mouse_event(self.leftdown, 0, 0, 0, 0)
                             #checks if inside a rectangle of the right puzzle piece and if it is it hold the puzzle piece
@@ -290,14 +328,13 @@ class AnsokuEnv(gym.Env):
                                 self.hold_right = True;
                                 self.holdingPiece_bool = True
 
-                                self.holdingPiece_time = time.time()
-
                                 ctypes.windll.user32.mouse_event(self.leftdown, 0, 0, 0, 0)
                             else:
                                 pass
                         else:
                             #not clicking on the pieces board
                             pass
+                        print("Mouse x and y status status is " + str(mouseX) + "x" + str(mouseY))
                         print("Holding left status is " + str(self. hold_left))
                         print("Holding mid status is " + str(self. hold_mid))
                         print("Holding right status is " + str(self. hold_right))
@@ -316,91 +353,84 @@ class AnsokuEnv(gym.Env):
                 else:
                     if self.hold_left or self.hold_mid or self.hold_right:
                         #checks if the piece was holding for 1 second or more and if give good reward
-                        currentTime = time.time()
-                        holdTime = currentTime - self.holdingPiece_time
                         if self.stepsAfterPickup >=25:
                             self.stepsAfterPickup = 0
-                            if holdTime >= 2:
-                            
-                                #checks what piece its holding then checks the difference with the old 
-                                #board if there is a difference then the piece will be placed
-                                if self.hold_left and not self.placed_left:
+           
+                            #checks what piece its holding then checks the difference with the old 
+                            #board if there is a difference then the piece will be placed
+                            if self.hold_left and not self.placed_left:
 
-                                    if CompareBoardPieces() == True:
+                                if CompareBoardPieces() == True:
 
-                                        actionReward += 1
+                                    actionReward += 1
 
-                                        ctypes.windll.user32.mouse_event(self.leftup, 0, 0, 0, 0)
+                                    ctypes.windll.user32.mouse_event(self.leftup, 0, 0, 0, 0)
 
-                                        self.hold_left = False
+                                    self.hold_left = False
 
-                                        time.sleep(1)
+                                    time.sleep(1)
 
-                                        self.placed_left = VerifyImagePlaced(1)
+                                    self.placed_left = VerifyImagePlaced(1)
 
-                                        actionReward += 10
+                                    actionReward += 10
 
-                                        if self.placed_left == True:
-                                            self.holdingPiece_bool = False
-                                        else:
-                                            actionReward -= 10
+                                    if self.placed_left == True:
+                                        self.holdingPiece_bool = False
                                     else:
-                                        actionReward -= 1
-                                #mid
-                                elif self.hold_mid and not self.placed_mid:
+                                        actionReward -= 10
+                                else:
+                                    actionReward -= 1
+                            #mid
+                            elif self.hold_mid and not self.placed_mid:
 
-                                    if CompareBoardPieces() == True:
+                                if CompareBoardPieces() == True:
 
-                                        actionReward += 1
+                                    actionReward += 1
 
-                                        ctypes.windll.user32.mouse_event(self.leftup, 0, 0, 0, 0)
-                                        self.hold_mid = False
-                                        time.sleep(1)
+                                    ctypes.windll.user32.mouse_event(self.leftup, 0, 0, 0, 0)
+                                    self.hold_mid = False
+                                    time.sleep(1)
 
-                                        actionReward += 10
+                                    actionReward += 10
 
-                                        self.placed_mid = VerifyImagePlaced(2)
+                                    self.placed_mid = VerifyImagePlaced(2)
 
-                                        if self.placed_mid == True:
+                                    if self.placed_mid == True:
 
-                                            self.holdingPiece_bool = False
-                                        else:
-                                            actionReward -= 10
+                                        self.holdingPiece_bool = False
                                     else:
-                                        actionReward -= 1
-                                #right
-                                elif self.hold_right and not self.placed_right:
+                                        actionReward -= 10
+                                else:
+                                    actionReward -= 1
+                            #right
+                            elif self.hold_right and not self.placed_right:
 
-                                    if CompareBoardPieces() == True:
+                                if CompareBoardPieces() == True:
 
-                                        actionReward += 1
+                                    actionReward += 1
 
-                                        ctypes.windll.user32.mouse_event(self.leftup, 0, 0, 0, 0)
-                                        self.hold_right = False
-                                        time.sleep(1)
+                                    ctypes.windll.user32.mouse_event(self.leftup, 0, 0, 0, 0)
+                                    self.hold_right = False
+                                    time.sleep(1)
 
-                                        actionReward += 10
+                                    actionReward += 10
 
-                                        self.placed_right = VerifyImagePlaced(3)
+                                    self.placed_right = VerifyImagePlaced(3)
 
-                                        if self.placed_right == True:
-                                            self.holdingPiece_bool = False
-                                        else:
-                                            actionReward -= 10
+                                    if self.placed_right == True:
+                                        self.holdingPiece_bool = False
                                     else:
-                                        actionReward -= 1
+                                        actionReward -= 10
+                                else:
+                                    actionReward -= 1
 
-                                #Debug info
-                                #print("Holding left status is " + str(self. hold_left))
-                                #print("Holding mid status is " + str(self. hold_mid))
-                                #print("Holding right status is " + str(self. hold_right))
-                                print("Placed left status is " + str(self. placed_left))
-                                print("Placed mid status is " + str(self. placed_mid))
-                                print("Placed right status is " + str(self. placed_right))
-                            else:
-                                pass
-                                actionReward -= 0.1
-                            self.holdingPiece_time = 0
+                            #Debug info
+                            #print("Holding left status is " + str(self. hold_left))
+                            #print("Holding mid status is " + str(self. hold_mid))
+                            #print("Holding right status is " + str(self. hold_right))
+                            print("Placed left status is " + str(self. placed_left))
+                            print("Placed mid status is " + str(self. placed_mid))
+                            print("Placed right status is " + str(self. placed_right))
                         else:
                             self.stepsAfterPickup +=1
                     else:
@@ -408,6 +438,9 @@ class AnsokuEnv(gym.Env):
         
         proximity_reward = self.calculate_proximity_reward(mouseX, mouseY)
         actionReward += proximity_reward
+        actionReward += self.external_rewards
+
+        self.external_rewards = 0
 
         #placed all 3 pieces so get 3 new ones scan them and begin again
         if(self.placed_left and self.placed_mid and self.placed_right):
@@ -438,8 +471,6 @@ class AnsokuEnv(gym.Env):
                 actionReward += 0.33
             if(self.placed_right):
                 actionReward += 0.33
-        
-        SharedData.terminated = False
 
         terminated = SharedData.terminated
         truncated = False
@@ -499,10 +530,30 @@ class AnsokuEnv(gym.Env):
         left_piece_id = self.piece_name_to_id.get(left_piece_name, 0)
         middle_piece_id = self.piece_name_to_id.get(middle_piece_name, 0)
         right_piece_id = self.piece_name_to_id.get(right_piece_name, 0)
-        
-        observation = board_encoded + [mouse_x, mouse_y] + [isholding, hold_left, hold_mid, hold_right, placed_left, placed_mid, placed_right,left_piece_id, middle_piece_id, right_piece_id]
-        
-        #print(observation)
+
+        if not self.placed_left:
+            puzzle1_posX = 1135
+            puzzle1_posY = 1130
+        else:
+            puzzle1_posX = 0
+            puzzle1_posY = 0
+
+        if not self.placed_mid:
+            puzzle2_posX = 1336
+            puzzle2_posY = 1130
+        else:
+            puzzle2_posX = 0
+            puzzle2_posY = 0
+
+        if not self.placed_right:
+            puzzle3_posX = 1430
+            puzzle3_posY = 1130
+        else:
+            puzzle3_posX = 0
+            puzzle3_posY = 0
+
+        observation = board_encoded + [mouse_x, mouse_y] + [puzzle1_posX, puzzle1_posY] + [puzzle2_posX, puzzle2_posY] + [puzzle3_posX, puzzle3_posY] + [isholding, hold_left, hold_mid, hold_right, placed_left, placed_mid, placed_right,
+        left_piece_id, middle_piece_id, right_piece_id]
         
         return np.array(observation, dtype=np.int32)
 

@@ -12,7 +12,6 @@ from CommonImports import *
 
 # Initialize colorama with strip=False and convert=False
 init(strip=False, convert=False, autoreset=True)
-
 # Custom Input Handling for the GUI Console
 def custom_input(prompt=''):
     sys.stdout.write(prompt)
@@ -388,7 +387,7 @@ class App(customtkinter.CTk):
             self.run_button.configure(state='normal')
 
     def display_image(self, img, crop_box=None):
-        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self.pil_image = Image.fromarray(img_rgb)
 
         if crop_box:

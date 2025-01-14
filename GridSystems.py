@@ -1,12 +1,7 @@
-from colorama import init, Fore, Back, Style
-from PIL import Image, ImageDraw,ImageGrab
 from lib2to3.pytree import convert
 from webbrowser import Chrome
 from GetImage import *
-import numpy as np
-import cv2 as cv
-import os
-import sys
+from CommonImports import *
 
 gridColor = (252,15,192)
 Letters = dict(loop_1 = "B", loop_2 = "C", loop_3 = "D", loop_4 = "E", loop_5 = "F", loop_6 = "G", loop_7 = "H", loop_8 = "I", loop_9 = "J", loop_10 = "A")

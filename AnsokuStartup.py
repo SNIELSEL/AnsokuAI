@@ -1,6 +1,5 @@
 from multiprocessing import sharedctypes
 from turtle import done
-from cv2 import startWindowThread
 from selenium.webdriver.common.action_chains import ActionChains
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.env_checker import check_env
