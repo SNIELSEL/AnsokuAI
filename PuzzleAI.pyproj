@@ -27,6 +27,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnsokuStartup.py" />
+    <Compile Include="CommonImports.py" />
     <Compile Include="env\Lib\site-packages\colorama\ansi.py" />
     <Compile Include="env\Lib\site-packages\colorama\ansitowin32.py" />
     <Compile Include="env\Lib\site-packages\colorama\initialise.py" />

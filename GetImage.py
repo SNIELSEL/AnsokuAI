@@ -1,7 +1,6 @@
 from webbrowser import Chrome
 import win32gui
-import time
-from PIL import Image, ImageDraw,ImageGrab
+from CommonImports import *
 
 def GetGameImage(imageFolder, chromeTabTitle):
     toplist, winlist = [], []
@@ -17,11 +16,10 @@ def GetGameImage(imageFolder, chromeTabTitle):
     win32gui.SetForegroundWindow(hwnd)
     time.sleep(0.5)
     bbox = win32gui.GetWindowRect(hwnd)
-    img = ImageGrab.grab(full_screen_bbox)
-    time.sleep(0.5)
-    #from SharedData import hwnd
-    #win32gui.SetForegroundWindow(hwnd)
 
-    from PuzzleDetection import SearchForPuzzlePieces
-    from SharedData import id
-    return SearchForPuzzlePieces(imageFolder, img, id)
+    import SharedData
+    SharedData.screen_img = ImageGrab.grab(full_screen_bbox)
+
+    time.sleep(0.5)
+
+    return ImageGrab.grab(full_screen_bbox)

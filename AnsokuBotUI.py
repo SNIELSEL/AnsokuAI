@@ -1,19 +1,14 @@
-import time
 import customtkinter
 from customtkinter import CTkFont  # Import CTkFont
 import tkinter
 import tkinter.font as tkfont
-import sys
 import threading
 import re
-from colorama import init, Fore
 from queue import Queue
-import cv2
-from PIL import Image, ImageTk
 import builtins
-import os
 import win32gui
 import ctypes
+from CommonImports import *
 
 # Initialize colorama with strip=False and convert=False
 init(strip=False, convert=False, autoreset=True)

@@ -1,4 +1,6 @@
+from multiprocessing import sharedctypes
 from turtle import done
+from cv2 import startWindowThread
 from selenium.webdriver.common.action_chains import ActionChains
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.env_checker import check_env
@@ -7,21 +9,20 @@ from colorama import init, Fore, Back, Style
 from stable_baselines3 import PPO
 from stable_baselines3 import A2C
 from MachineLearningEnvoirement import AnsokuEnv
-from colorama import Fore
 from tensorboard import program
 from selenium import webdriver
 from webbrowser import Chrome
 from GetImage import GetGameImage
+import SharedData
 import gymnasium as gym
 import pyautogui
 import win32gui
-import os
-import time
+from CommonImports import *
 
 model_name = "PPO"
 models_dir = f"Models/{model_name}"
 logdir = "Logs/"
-trainingSteps= 50000
+trainingSteps= 100000
 
 def StartAI(puzzlePieceFolder, chromeTabTitle):
     toplist, winlist = [], []
@@ -31,6 +32,10 @@ def StartAI(puzzlePieceFolder, chromeTabTitle):
 
     chrome = [(hwnd, title) for hwnd, title in winlist if chromeTabTitle in title.lower()]
     if not chrome:
+        import SharedData as startupData
+        startupData.puzzlePiece_folder = puzzlePieceFolder
+        startupData.chrome_titel = chromeTabTitle
+
         StartupAnsokuWindow(puzzlePieceFolder, chromeTabTitle)
     else:
         print(Fore.RED + "Already a Window open please close it first and try again")
@@ -71,7 +76,18 @@ def EnterPlayState(puzzlePieceFolder, chromeTabTitle):
 
     GetGameImage(puzzlePieceFolder, chromeTabTitle)
     
-def StartMachineLearningAgent(board_gridcell_values):
+    from PuzzleDetection import SearchForPuzzlePieces, SearchForPuzzleOnGrid
+    SearchForPuzzlePieces(puzzlePieceFolder, SharedData.screen_img)
+
+    import SharedData as newData
+    original_img_grid = SearchForPuzzleOnGrid(newData.screen_img, newData.screen_img_opencv)
+
+    newData.id.display_image(original_img_grid, (457, 32, 823, 690))
+
+    from AnsokuStartup import StartMachineLearningAgent
+    StartMachineLearningAgent()
+    
+def StartMachineLearningAgent():
     
     if not os.path.exists(models_dir):
         os.makedirs(models_dir)

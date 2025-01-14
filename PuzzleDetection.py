@@ -1,13 +1,10 @@
-from colorama import init, Fore, Back, Style
-from PIL import Image, ImageDraw,ImageGrab
+from multiprocessing import sharedctypes
 from lib2to3.pytree import convert
 from webbrowser import Chrome
 from GetImage import *
 from math import sqrt
-import numpy as np
-import cv2 as cv
-import os
-import sys
+import SharedData
+from CommonImports import *
 
 # Use the same ConsoleRedirect instance if provided
 if hasattr(sys.modules[__name__], 'console_redirect'):
@@ -24,7 +21,7 @@ thickness = 1
 
 currentPuzzlePieces = None
 
-def SearchForPuzzlePieces(ImageFolder, scanImage, gui_Instance):
+def SearchForPuzzlePieces(ImageFolder, scanImage):
 
     currentPuzzlePieces = dict(puzzlePiece_left = "Empty", puzzlePiece_middle = "Empty", puzzlePiece_right = "Empty")
     image_variants = []
@@ -45,8 +42,9 @@ def SearchForPuzzlePieces(ImageFolder, scanImage, gui_Instance):
 
     #use pillow library Image functione to get a image
     img = scanImage
+    SharedData.screen_img = scanImage
     #Manually set tuple(a kind of vector2) to later use to cover image
-    variants = [
+    SharedData.image_variants = variants = [
         [((1220, 1040), (1355, 1200)), ((1355, 1040), (1500, 1200)), ((0, 0), (1060, 1440)), ((0, 0), (2560, 1050)), ((0, 1200), (2560, 1440)), ((1500, 1040), (2560, 1440))],
         [((1040, 1040), (1200, 1200)), ((1355, 1040), (1500, 1200)), ((0, 0), (1060, 1440)), ((0, 0), (2560, 1050)), ((0, 1200), (2560, 1440)), ((1500, 1040), (2560, 1440))],
         [((1040, 1040), (1200, 1200)), ((1200, 1040), (1355, 1200)), ((0, 0), (1060, 1440)), ((0, 0), (2560, 1050)), ((0, 1200), (2560, 1440)), ((1500, 1040), (2560, 1440))]
@@ -113,6 +111,13 @@ def SearchForPuzzlePieces(ImageFolder, scanImage, gui_Instance):
 
                         if(max_val >= mostMatchingPiece.get("dictMax_val")):
                             mostMatchingPiece = dict(name = imageWithoutExstension, dictTop_left = top_left, dictBottom_right = bottom_right, dictMax_val = max_val)
+
+                            if variant_img == image_variants[0]:
+                                SharedData.PuzzleImage1 = puzzlePiece_img
+                            elif variant_img == image_variants[1]:
+                                SharedData.PuzzleImage2 = puzzlePiece_img
+                            elif variant_img == image_variants[2]:
+                                SharedData.PuzzleImage3 = puzzlePiece_img
      
                     else:
                         print(Fore.RED + f"Nothing found for {imageWithoutExstension} its white value was {max_val}")
@@ -142,13 +147,8 @@ def SearchForPuzzlePieces(ImageFolder, scanImage, gui_Instance):
         elif variant_img == image_variants[2]:
             currentPuzzlePieces["puzzlePiece_right"] = mostMatchingPiece.get("name");
 
-    import SharedData
-    SharedData.currentPuzzlePieces = currentPuzzlePieces
-
-    original_img_grid = SearchForPuzzleOnGrid(scanImage, original_img)
-
-    gui_Instance.display_image(original_img_grid, (457, 32, 823, 690))
-
+        SharedData.currentPuzzlePieces = currentPuzzlePieces
+        SharedData.screen_img_opencv = original_img
 
 board_gridcell_values = dict(A1 = (1044,470), A2 = (1105,470), A3 = (1155,470), A4 = (1210,470), A5 = (1270,470), A6 = (1320,470), A7 = (1376,470), A8 = (1415,470), A9 = (1468,470), A10 = (1528,470)
 , B1 = (1040,525), B2 = (1105,523), B3 = (1155,525), B4 = (1210,525), B5 = (1262,525), B6 = (1320,525), B7 = (1378,525), B8 = (1408,525), B9 = (1463,525), B10 = (1520,525)
@@ -187,6 +187,18 @@ def get_color_distance(pixel, target_color):
     return sqrt(sum((pixel[i] - target_color[i]) ** 2 for i in range(3)))
 
 def SearchForPuzzleOnGrid(original_img, cvImage):
+
+    board_gridcell_values = dict(A1 = (1044,470), A2 = (1105,470), A3 = (1155,470), A4 = (1210,470), A5 = (1270,470), A6 = (1320,470), A7 = (1376,470), A8 = (1415,470), A9 = (1468,470), A10 = (1528,470)
+    , B1 = (1040,525), B2 = (1105,523), B3 = (1155,525), B4 = (1210,525), B5 = (1262,525), B6 = (1320,525), B7 = (1378,525), B8 = (1408,525), B9 = (1463,525), B10 = (1520,525)
+    , C1 = (1040,580), C2 = (1105,580), C3 = (1155,580), C4 = (1210,580), C5 = (1265,580), C6 = (1320,580), C7 = (1370,595), C8 = (1415,580), C9 = (1470,580), C10 = (1523,580)
+    , D1 = (1040,635), D2 = (1105,635), D3 = (1155,635), D4 = (1210,635), D5 = (1262,635), D6 = (1320,635), D7 = (1370,635), D8 = (1425,635), D9 = (1470,635), D10 = (1528,635)
+    , E1 = (1040,690), E2 = (1105,690), E3 = (1155,690), E4 = (1210,690), E5 = (1265,690), E6 = (1320,690), E7 = (1370,690), E8 = (1420,690), E9 = (1475,690), E10 = (1533,690)
+    , F1 = (1040,745), F2 = (1105,745), F3 = (1155,745), F4 = (1210,745), F5 = (1262,745), F6 = (1320,745), F7 = (1358,745), F8 = (1420,745), F9 = (1480,745), F10 = (1533,745)
+    , G1 = (1040,795), G2 = (1100,795), G3 = (1155,795), G4 = (1210,795), G5 = (1262,795), G6 = (1320,795), G7 = (1375,795), G8 = (1415,795), G9 = (1471,795), G10 = (1540,795)
+    , H1 = (1040,849), H2 = (1100,849), H3 = (1155,849), H4 = (1210,849), H5 = (1270,849), H6 = (1325,849), H7 = (1382,849), H8 = (1415,849), H9 = (1470,849), H10 = (1525,849)
+    , I1 = (1040,905), I2 = (1098,905), I3 = (1155,905), I4 = (1210,905), I5 = (1262,905), I6 = (1320,905), I7 = (1380,905), I8 = (1415,905), I9 = (1470,905), I10 = (1530,905)
+    , J1 = (1040,955), J2 = (1100,960), J3 = (1150,960), J4 = (1210,955), J5 = (1262,957), J6 = (1320,957), J7 = (1370,957), J8 = (1425,957), J9 = (1480,957), J10 = (1540,957))
+
     target_static_colors = {
         "shadow1": (153, 147, 150),
         "shadow2": (184, 173, 177),
@@ -269,10 +281,9 @@ def SearchForPuzzleOnGrid(original_img, cvImage):
     new_width, new_height = original_width // 2, original_height // 2
     cvImage = cv.resize(cvImage, (new_width, new_height))
 
-    from AnsokuStartup import StartMachineLearningAgent
-    StartMachineLearningAgent(board_gridcell_values)
-
     #print(Fore.MAGENTA + str(board_gridcell_values))
+
+    SharedData.board_gridcell_values = board_gridcell_values
 
     return cvImage
 
