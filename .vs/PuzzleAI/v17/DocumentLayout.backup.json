@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\MachineLearningEnvoirement.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:MachineLearningEnvoirement.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:PuzzleDetection.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\SharedData.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:SharedData.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\SharedData.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:SharedData.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\MachineLearningEnvoirement.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:MachineLearningEnvoirement.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GetImage.py||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 506,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -60,14 +60,14 @@
               "RelativeDocumentMoniker": "SharedData.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\SharedData.py",
               "RelativeToolTip": "SharedData.py",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-12-06T14:06:28.661Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "MachineLearningEnvoirement.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\MachineLearningEnvoirement.py",
               "RelativeDocumentMoniker": "MachineLearningEnvoirement.py",
@@ -80,13 +80,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "AnsokuStartup.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py",
               "RelativeDocumentMoniker": "AnsokuStartup.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py",
               "RelativeToolTip": "AnsokuStartup.py",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAABkAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB8AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-11-25T23:01:34.606Z",
               "EditorCaption": ""
@@ -106,26 +106,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "PuzzleDetection.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py",
               "RelativeDocumentMoniker": "PuzzleDetection.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py",
               "RelativeToolTip": "PuzzleDetection.py",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAAHoAAAB/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-11-20T10:09:45.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "AnsokuBotUI.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py",
               "RelativeDocumentMoniker": "AnsokuBotUI.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py",
               "RelativeToolTip": "AnsokuBotUI.py",
-              "ViewState": "AgIAAOMBAAAAAAAAAAAAAP0BAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAALMBAAAAAAAAAAASwAcCAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-11-20T02:50:23.799Z",
               "EditorCaption": ""

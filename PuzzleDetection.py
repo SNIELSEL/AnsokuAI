@@ -100,7 +100,7 @@ def SearchForPuzzlePieces(ImageFolder, scanImage):
 
                     matchingImageThreshold = 0.76
                     if(max_val >= matchingImageThreshold):
-                        print(Fore.GREEN + f"{imageWithoutExstension} matches at: {max_loc} with a white value of {max_val}")
+                        print(Fore.GREEN + f"{imageWithoutExstension} matches with a percentage of {round(max_val * 100, 1)}%")
 
                         #getting the dimensions of the image to later use to draw the rectangle
                         puzzlePieceData_w = puzzlePiece_img.shape[1]
@@ -120,7 +120,7 @@ def SearchForPuzzlePieces(ImageFolder, scanImage):
                                 SharedData.PuzzleImage3 = puzzlePiece_img
      
                     else:
-                        print(Fore.RED + f"Nothing found for {imageWithoutExstension} its white value was {max_val}")
+                        print(Fore.RED + f"{imageWithoutExstension} didn't match. Its match percentage was {round(max_val * 100, 1)}%")
 
 
         if(mostMatchingPiece.get("name") != "Empty"):

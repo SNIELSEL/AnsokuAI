@@ -8,7 +8,6 @@ from colorama import init, Fore, Back, Style
 from stable_baselines3 import PPO
 from stable_baselines3 import A2C
 from MachineLearningEnvoirement import AnsokuEnv
-from tensorboard import program
 from selenium import webdriver
 from webbrowser import Chrome
 from GetImage import GetGameImage
@@ -18,10 +17,10 @@ import pyautogui
 import win32gui
 from CommonImports import *
 
-model_name = "PPO"
-models_dir = f"Models/{model_name}"
-logdir = "Logs/"
-trainingSteps= 100000
+model_name = SharedData.model_name
+models_dir = SharedData.models_dir
+logdir = SharedData.logdir
+trainingSteps = SharedData.trainingSteps
 
 def StartAI(puzzlePieceFolder, chromeTabTitle):
     toplist, winlist = [], []
@@ -31,20 +30,9 @@ def StartAI(puzzlePieceFolder, chromeTabTitle):
 
     chrome = [(hwnd, title) for hwnd, title in winlist if chromeTabTitle in title.lower()]
     if not chrome:
-        import SharedData as startupData
-        startupData.puzzlePiece_folder = puzzlePieceFolder
-        startupData.chrome_titel = chromeTabTitle
-
         StartupAnsokuWindow(puzzlePieceFolder, chromeTabTitle)
     else:
         print(Fore.RED + "Already a Window open please close it first and try again")
-
-def launch_tensorboard(logdir):
-    tb = program.TensorBoard()
-    tb.configure(argv=[None, '--logdir', logdir])
-    url = tb.launch()
-    print(f"TensorBoard is running at {url}")
-
 
 def StartupAnsokuWindow(puzzlePieceFolder, chromeTabTitle):
     global driver
@@ -93,10 +81,6 @@ def StartMachineLearningAgent():
 
     if not os.path.exists(logdir):
         os.makedirs(logdir)
-
-    import threading
-    tb_thread = threading.Thread(target=launch_tensorboard, args=(logdir,), daemon=True)
-    tb_thread.start()
 
     env = AnsokuEnv()
     check_env(env)

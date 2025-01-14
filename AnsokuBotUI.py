@@ -1,5 +1,6 @@
 import customtkinter
 from customtkinter import CTkFont  # Import CTkFont
+from tensorboard import program
 import tkinter
 import tkinter.font as tkfont
 import threading
@@ -9,6 +10,7 @@ import builtins
 import win32gui
 import ctypes
 from CommonImports import *
+import SharedData
 
 # Initialize colorama with strip=False and convert=False
 init(strip=False, convert=False, autoreset=True)
@@ -506,9 +508,22 @@ class App(customtkinter.CTk):
         # Ensure 'input' tag is always visible
         self.console.tag_configure('input', elide=False)
 
+
+def launch_tensorboard(logdir):
+    tb = program.TensorBoard()
+    tb.configure(argv=[None, '--logdir', logdir])
+    url = tb.launch()
+    print(f"TensorBoard is running at {url}")
+
 if __name__ == "__main__":
-    puzzlePieceFolder = "PuzzlePieces/"
-    chromeTabTitle = "unity web player"
+    puzzlePieceFolder = SharedData.puzzlePieceFolder
+    chromeTabTitle = SharedData.chromeTabTitle
+    logdir = SharedData.logdir
+
+    import threading
+    tb_thread = threading.Thread(target=launch_tensorboard, args=(logdir,), daemon=True)
+    tb_thread.start()
+
     app = App()
     builtins.input = custom_input
     app.after(1000, app.initialize_window_handle)  # Ensure window handle is initialized after setup
