@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:PuzzleDetection.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\SharedData.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:SharedData.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\MachineLearningEnvoirement.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:MachineLearningEnvoirement.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuStartup.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GetImage.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:GetImage.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:PuzzleDetection.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|solutionrelative:AnsokuBotUI.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52E3A0D2-548C-4F99-A36F-A1C08C5D6AC1}|PuzzleAI.pyproj|C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\CommonImports.py||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 506,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,46 +54,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "SharedData.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\SharedData.py",
               "RelativeDocumentMoniker": "SharedData.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\SharedData.py",
               "RelativeToolTip": "SharedData.py",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-12-06T14:06:28.661Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "MachineLearningEnvoirement.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\MachineLearningEnvoirement.py",
               "RelativeDocumentMoniker": "MachineLearningEnvoirement.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\MachineLearningEnvoirement.py",
               "RelativeToolTip": "MachineLearningEnvoirement.py",
-              "ViewState": "AgIAABgCAAAAAAAAAAAAACsCAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAABYBAAAAAAAAAAAAALUBAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-12-06T11:40:52.708Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "AnsokuStartup.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py",
               "RelativeDocumentMoniker": "AnsokuStartup.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuStartup.py",
               "RelativeToolTip": "AnsokuStartup.py",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB8AAAASAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAE0AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-11-25T23:01:34.606Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "GetImage.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\GetImage.py",
               "RelativeDocumentMoniker": "GetImage.py",
@@ -106,26 +106,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "PuzzleDetection.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py",
               "RelativeDocumentMoniker": "PuzzleDetection.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\PuzzleDetection.py",
               "RelativeToolTip": "PuzzleDetection.py",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGYAAAB9AAAAAAAAAA==",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAAAGYAAAB9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-11-20T10:09:45.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "AnsokuBotUI.py",
               "DocumentMoniker": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py",
               "RelativeDocumentMoniker": "AnsokuBotUI.py",
               "ToolTip": "C:\\Users\\offic\\Unity projects\\Other\\AnsokuAI\\AnsokuBotUI.py",
               "RelativeToolTip": "AnsokuBotUI.py",
-              "ViewState": "AgIAALMBAAAAAAAAAAASwAcCAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAH0BAAAAAAAAAAASwAcCAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-11-20T02:50:23.799Z",
               "EditorCaption": ""

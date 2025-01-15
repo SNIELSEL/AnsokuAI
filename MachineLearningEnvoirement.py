@@ -112,7 +112,7 @@ class AnsokuEnv(gym.Env):
             self.old_board_data = self.board_data
 
             from GetImage import GetGameImage
-            GetGameImage(SharedData.puzzlePiece_folder,SharedData.chrome_titel)
+            GetGameImage(SharedData.puzzlePieceFolder,SharedData.chromeTabTitle)
 
             from PuzzleDetection import SearchForPuzzleOnGrid
             import SharedData as newSharedData
@@ -131,7 +131,7 @@ class AnsokuEnv(gym.Env):
             puzzle_variants = []
 
             from GetImage import GetGameImage
-            GetGameImage(SharedData.puzzlePiece_folder,SharedData.chrome_titel)
+            GetGameImage(SharedData.puzzlePieceFolder,SharedData.chromeTabTitle)
 
             import SharedData as verificationData
 
@@ -301,9 +301,10 @@ class AnsokuEnv(gym.Env):
                 #LeftMouseDown
                 #checks if clicking on the options button or rotate/undo and if then give negative reward and else releases mouse
                 if (930 <= mouseX <= 1100 and 65 <= mouseY <= 420) or (1490 <= mouseX <= 1640 and 260 <= mouseY <= 440):
-                    actionReward -= 0.1
+                    actionReward -= 2
                 else:
                     if not self.hold_left and not self.hold_mid and not self.hold_right:
+                        #checks if inside the the square that contains the 3 placeable puzzle pieces
                         if 1070 <= mouseX <= 1500 and 1042 <= mouseY <= 1215:
                             #checks if inside a rectangle of the left puzzle piece and if it is it hold the puzzle piece
                             if 1130 <= mouseX <= 1140 and 1120 <= mouseY <= 1140 and not self.placed_left:
@@ -333,7 +334,8 @@ class AnsokuEnv(gym.Env):
                                 pass
                         else:
                             #not clicking on the pieces board
-                            pass
+                            actionReward -= 3
+
                         print("Mouse x and y status status is " + str(mouseX) + "x" + str(mouseY))
                         print("Holding left status is " + str(self. hold_left))
                         print("Holding mid status is " + str(self. hold_mid))
@@ -342,7 +344,7 @@ class AnsokuEnv(gym.Env):
                         print("Placed mid status is " + str(self. placed_mid))
                         print("Placed right status is " + str(self. placed_right))
                     else:
-                        pass
+                        actionReward -= 1
         
             case 9:
                 #LeftMouseUp/ReleaseMouse
@@ -454,10 +456,10 @@ class AnsokuEnv(gym.Env):
             pyautogui.click(1280,1240)
 
             from GetImage import GetGameImage
-            GetGameImage(SharedData.puzzlePiece_folder,SharedData.chrome_titel)
+            GetGameImage(SharedData.puzzlePieceFolder,SharedData.chromeTabTitle)
 
             from PuzzleDetection import SearchForPuzzlePieces, SearchForPuzzleOnGrid
-            SearchForPuzzlePieces(SharedData.puzzlePiece_folder, SharedData.screen_img)
+            SearchForPuzzlePieces(SharedData.puzzlePieceFolder, SharedData.screen_img)
 
             import SharedData as newData
             original_img_grid = SearchForPuzzleOnGrid(newData.screen_img, newData.screen_img_opencv)
@@ -597,10 +599,10 @@ class AnsokuEnv(gym.Env):
             self.placed_right = False
 
             from GetImage import GetGameImage
-            GetGameImage(SharedData.puzzlePiece_folder,SharedData.chrome_titel)
+            GetGameImage(SharedData.puzzlePieceFolder,SharedData.chromeTabTitle)
 
             from PuzzleDetection import SearchForPuzzlePieces, SearchForPuzzleOnGrid
-            SearchForPuzzlePieces(SharedData.puzzlePiece_folder, SharedData.screen_img)
+            SearchForPuzzlePieces(SharedData.puzzlePieceFolder, SharedData.screen_img)
 
             import SharedData as newData
             original_img_grid = SearchForPuzzleOnGrid(newData.screen_img, newData.screen_img_opencv)
