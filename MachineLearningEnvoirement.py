@@ -10,7 +10,7 @@ import SharedData
 import pyautogui
 from CommonImports import *
 
-cursorSpeed = 6
+cursorSpeed = 8
 
 init(strip=False, convert=False, autoreset=True)
 
@@ -52,7 +52,7 @@ class AnsokuEnv(gym.Env):
         self.observation_space = spaces.MultiDiscrete(
             [2] * len(self.board_data) + [2560, 1440] +              
             [1135 + 1, 1130 + 1] +       
-            [1336 + 1, 1130 + 1] +      
+            [1285 + 1, 1130 + 1] +      
             [1430 + 1, 1130 + 1] +       
             [2, 2, 2, 2, 2, 2, 2] +       
             [self.num_pieces] * 3 
@@ -66,7 +66,7 @@ class AnsokuEnv(gym.Env):
 
         self.target_centers = {
         'left': (1135, 1130),
-        'mid': (1336, 1130),
+        'mid': (1285, 1130),
         'right': (1430, 1130)}
 
         self.hold_left = False
@@ -77,9 +77,9 @@ class AnsokuEnv(gym.Env):
         self.placed_mid = False
         self.placed_right = False
 
+        self.holdingPiece_time = 0
         self.holdingPiece_bool = False
         self.stepsAfterPickup = 0
-        self.startup = True
         self.external_rewards = 0
 
     def get_mouse_position(self):
@@ -99,13 +99,17 @@ class AnsokuEnv(gym.Env):
             new_y = max(70, min(current_y + dy, 1370))
             ctypes.windll.user32.SetCursorPos(new_x, new_y + dy)
         else:
-            self.external_rewards -= 5
+            self.external_rewards -= 10
             pyautogui.click(1280,1240)
 
 
     def step(self, action):
         mouseX, mouseY = self.get_mouse_position()
         actionReward = 0
+
+        if self.holdingPiece_time <= 10:
+            self.holdingPiece_time = time.time()
+
         #compares the new board with the old for differences if there is a difference it means a puzzle piece has been placed
         def CompareBoardPieces():
 
@@ -190,7 +194,7 @@ class AnsokuEnv(gym.Env):
                     min_val, max_val, min_loc, max_loc = cv.minMaxLoc(result)
                     print(Fore.GREEN +str(max_val) + Fore.WHITE)
 
-                    matchingImageThreshold = 0.76
+                    matchingImageThreshold = 0.66
                     if(max_val >= matchingImageThreshold):
                         return False
                     else:
@@ -202,7 +206,7 @@ class AnsokuEnv(gym.Env):
                     min_val, max_val, min_loc, max_loc = cv.minMaxLoc(result)
                     print(Fore.GREEN +str(max_val) + Fore.WHITE)
 
-                    matchingImageThreshold = 0.76
+                    matchingImageThreshold = 0.66
                     if(max_val >= matchingImageThreshold):
                         return False
                     else:
@@ -214,7 +218,7 @@ class AnsokuEnv(gym.Env):
                     min_val, max_val, min_loc, max_loc = cv.minMaxLoc(result)
                     print(Fore.GREEN +str(max_val) + Fore.WHITE)
 
-                    matchingImageThreshold = 0.76
+                    matchingImageThreshold = 0.66
                     if(max_val >= matchingImageThreshold):
                         return False
                     else:
@@ -307,7 +311,7 @@ class AnsokuEnv(gym.Env):
                         #checks if inside the the square that contains the 3 placeable puzzle pieces
                         if 1070 <= mouseX <= 1500 and 1042 <= mouseY <= 1215:
                             #checks if inside a rectangle of the left puzzle piece and if it is it hold the puzzle piece
-                            if 1130 <= mouseX <= 1140 and 1120 <= mouseY <= 1140 and not self.placed_left:
+                            if 1105 <= mouseX <= 1165 and 1100 <= mouseY <= 1160 and not self.placed_left:
                                 actionReward += 5
 
                                 self.hold_left = True;
@@ -315,7 +319,7 @@ class AnsokuEnv(gym.Env):
 
                                 ctypes.windll.user32.mouse_event(self.leftdown, 0, 0, 0, 0)
                             #checks if inside a rectangle of the middle puzzle piece and if it is it hold the puzzle piece
-                            elif 1279 <= mouseX <= 1393 and 1122 <= mouseY <= 1138 and not self.placed_mid:
+                            elif 1255 <= mouseX <= 1315 and 1100 <= mouseY <= 1160 and not self.placed_mid:
                                 actionReward += 5
 
                                 self.hold_mid = True;
@@ -323,7 +327,7 @@ class AnsokuEnv(gym.Env):
 
                                 ctypes.windll.user32.mouse_event(self.leftdown, 0, 0, 0, 0)
                             #checks if inside a rectangle of the right puzzle piece and if it is it hold the puzzle piece
-                            elif 1425 <= mouseX <= 1435 and 1125 <= mouseY <= 1135 and not self.placed_right:
+                            elif 1400 <= mouseX <= 1460 and 1100 <= mouseY <= 1160 and not self.placed_right:
                                 actionReward += 5
 
                                 self.hold_right = True;
@@ -377,10 +381,13 @@ class AnsokuEnv(gym.Env):
                                     actionReward += 10
 
                                     if self.placed_left == True:
+                                        self.holdingPiece_time = time.time()
+                                        actionReward += 5
                                         self.holdingPiece_bool = False
                                     else:
-                                        actionReward -= 10
+                                        actionReward -= 9
                                 else:
+                                    self.hold_left = VerifyImagePlaced(1)
                                     actionReward -= 1
                             #mid
                             elif self.hold_mid and not self.placed_mid:
@@ -398,11 +405,13 @@ class AnsokuEnv(gym.Env):
                                     self.placed_mid = VerifyImagePlaced(2)
 
                                     if self.placed_mid == True:
-
+                                        self.holdingPiece_time = time.time()
+                                        actionReward += 5
                                         self.holdingPiece_bool = False
                                     else:
-                                        actionReward -= 10
+                                        actionReward -= 9
                                 else:
+                                    self.hold_mid = VerifyImagePlaced(2)
                                     actionReward -= 1
                             #right
                             elif self.hold_right and not self.placed_right:
@@ -420,10 +429,13 @@ class AnsokuEnv(gym.Env):
                                     self.placed_right = VerifyImagePlaced(3)
 
                                     if self.placed_right == True:
+                                        self.holdingPiece_time = time.time()
+                                        actionReward += 5
                                         self.holdingPiece_bool = False
                                     else:
-                                        actionReward -= 10
+                                        actionReward -= 9
                                 else:
+                                    self.hold_right = VerifyImagePlaced(3)
                                     actionReward -= 1
 
                             #Debug info
@@ -461,18 +473,28 @@ class AnsokuEnv(gym.Env):
             from PuzzleDetection import SearchForPuzzlePieces, SearchForPuzzleOnGrid
             SearchForPuzzlePieces(SharedData.puzzlePieceFolder, SharedData.screen_img)
 
+            self.getPuzzleNames()
+
             import SharedData as newData
             original_img_grid = SearchForPuzzleOnGrid(newData.screen_img, newData.screen_img_opencv)
 
             newData.id.display_image(original_img_grid, (457, 32, 823, 690))
 
+            self.holdingPiece_time = time.time()
+
         else:
             if(self.placed_left):
-                actionReward += 0.33
+                actionReward += 1
             if(self.placed_mid):
-                actionReward += 0.33
+                actionReward += 1
             if(self.placed_right):
-                actionReward += 0.33
+                actionReward += 1
+
+        currentTime = time.time()
+        timeSinceLastAction = currentTime - self.holdingPiece_time
+
+        if timeSinceLastAction >= 300:
+            SharedData.terminated = True
 
         terminated = SharedData.terminated
         truncated = False
@@ -541,7 +563,7 @@ class AnsokuEnv(gym.Env):
             puzzle1_posY = 0
 
         if not self.placed_mid:
-            puzzle2_posX = 1336
+            puzzle2_posX = 1285
             puzzle2_posY = 1130
         else:
             puzzle2_posX = 0
@@ -574,10 +596,11 @@ class AnsokuEnv(gym.Env):
         super().reset(seed=seed)
 
         terminated = SharedData.terminated
-        actionReward = 0
 
         self.holdingPiece_time = 0
         self.holdingPiece_bool = False
+        self.stepsAfterPickup = 0
+
         observation = self.get_observation()
         info = self.get_info()
 
@@ -586,12 +609,22 @@ class AnsokuEnv(gym.Env):
         self.hold_right = False
 
         if terminated == True:
+            #click home
             pyautogui.click(1000,125)
             time.sleep(4)
+            #click new game
             pyautogui.click(1285,920)
             time.sleep(1)
+            #click new game backup for if first fails (happens often)
+            pyautogui.click(1285,920)
+            time.sleep(1)
+            #click confirm
             pyautogui.click(1455,1135)
-            time.sleep(5)
+            time.sleep(1)
+            #click confirm backup for if the first one doesnt register
+            pyautogui.click(1455,1135)
+            time.sleep(7)
+            #mouse to button
             pyautogui.click(1280,1240)
 
             self.placed_left = False
@@ -608,7 +641,11 @@ class AnsokuEnv(gym.Env):
             original_img_grid = SearchForPuzzleOnGrid(newData.screen_img, newData.screen_img_opencv)
 
             newData.id.display_image(original_img_grid, (457, 32, 823, 690))
-            terminated = False
+
+            self.getPuzzleNames()
+            self.holdingPiece_time = time.time()
+            
+            SharedData.terminated = False
 
         return observation, info
 
