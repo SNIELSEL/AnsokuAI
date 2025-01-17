@@ -282,37 +282,65 @@ class App(customtkinter.CTk):
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # Image label setup with breathing space
-        # Create a subframe for the Run button and image
+        # Create a subframe for the Train button and image
         self.image_subframe = customtkinter.CTkFrame(self.image_frame, fg_color='#1e1e1e', corner_radius=0)
         self.image_subframe.grid(row=0, column=0, sticky='nsew')
         self.image_frame.grid_rowconfigure(0, weight=1)
         self.image_frame.grid_columnconfigure(0, weight=1)
 
-        self.image_subframe.grid_rowconfigure(0, weight=0)  # Run button row
+        self.image_subframe.grid_rowconfigure(0, weight=0)  # This row will hold our title label and Train buttons
         self.image_subframe.grid_rowconfigure(1, weight=1)  # Image display row
         self.image_subframe.grid_columnconfigure(0, weight=1)
 
-        # Create a frame inside image_subframe to hold the Run button
+        # Create a frame inside image_subframe to hold the title label and Train buttons
         self.run_button_frame = customtkinter.CTkFrame(self.image_subframe, fg_color='#1e1e1e')
         self.run_button_frame.grid(row=0, column=0, sticky='ew', pady=10)
 
         # Configure run_button_frame to allow centering
-        self.run_button_frame.grid_rowconfigure(0, weight=1)
-        self.run_button_frame.grid_columnconfigure(0, weight=1)
+        self.run_button_frame.grid_rowconfigure(0, weight=0)
+        self.run_button_frame.grid_rowconfigure(1, weight=0)
+        # We'll add another column for the second button
+        self.run_button_frame.grid_columnconfigure(0, weight=0)
+        self.run_button_frame.grid_columnconfigure(1, weight=0)
 
-        # Create the Run button with hover effect
+        # -------------------- New Label Added Here --------------------
+        self.title_label = customtkinter.CTkLabel(
+            self.run_button_frame,
+            text="AnsokuBot",
+            text_color="#f8f8f2",
+            fg_color="#1e1e1e",
+            font=CTkFont(family="TkDefaultFont", size=16, weight="bold")
+        )
+        self.title_label.grid(row=0, column=0, columnspan=2, pady=(0, 5))
+        # -------------------------------------------------------------
+
+        # -------------------- First Button (PPO) ---------------------
         self.run_button = customtkinter.CTkButton(
             self.run_button_frame, 
-            text="Run", 
-            command=self.start_AnsokuENV_output,
+            text="Train AI (PPO)",  # changed text
+            command=self.start_AnsokuENV_output,  # same command for PPO
             hover_color="#44475a",  # Darker shade on hover
-            fg_color="#6272a4",      # Initial color
-            text_color="#f8f8f2",    # Text color
+            fg_color="#6272a4",     # Initial color
+            text_color="#f8f8f2",   # Text color
             corner_radius=8,
             width=80,
             height=30
         )
-        self.run_button.grid(row=0, column=0)
+        self.run_button.grid(row=1, column=0, padx=5)
+
+        # -------------------- Second Button (A2C) --------------------
+        self.run_button2 = customtkinter.CTkButton(
+            self.run_button_frame,
+            text="Train AI (A2C)",  # new button text
+            command=self.start_AnsokuENV_output_A2C,  # new A2C command
+            hover_color="#44475a",
+            fg_color="#6272a4",
+            text_color="#f8f8f2",
+            corner_radius=8,
+            width=80,
+            height=30
+        )
+        self.run_button2.grid(row=1, column=1, padx=5)
 
         # Image display frame
         self.image_display_frame = customtkinter.CTkFrame(self.image_subframe, fg_color='#1e1e1e')
@@ -336,7 +364,7 @@ class App(customtkinter.CTk):
         self.placeholder_label.pack(expand=True, fill='both')
         self.placeholder_panel.grid(row=0, column=0, columnspan=1, sticky='nsew')  # Allow expansion
 
-        # Image label below the Run button (initially hidden)
+        # Image label below the "Train" button (initially hidden)
         self.image_label = tkinter.Label(self.image_display_frame, bg='#1e1e1e')
         # Initially, the image_label is not packed or placed
 
@@ -362,6 +390,7 @@ class App(customtkinter.CTk):
             print(Fore.RED + f"Error retrieving window handle: {e}")
 
     def start_AnsokuENV_output(self):
+        """Starts environment with PPO."""
         if self.AnsokuENV_thread and self.AnsokuENV_thread.is_alive():
             print(Fore.YELLOW + "Bot is already running.")
             return
@@ -369,24 +398,56 @@ class App(customtkinter.CTk):
         import SharedData
         SharedData.hwnd = self.hwnd
         SharedData.id = self
-        self.run_button.configure(state='disabled')
-        self.AnsokuENV_thread = threading.Thread(target=self.AnsokuENV_output, daemon=True)
-        self.AnsokuENV_thread.start()
-        print(Fore.BLUE + "AI started.")
 
-    def AnsokuENV_output(self):
+        self.run_button.configure(state='disabled')
+        self.AnsokuENV_thread = threading.Thread(target=self.Ansoku_PPO_ENV_output, daemon=True)
+        self.AnsokuENV_thread.start()
+        print(Fore.BLUE + "AI started (PPO).")
+
+    # -------------------- Second Method for A2C --------------------
+    def start_AnsokuENV_output_A2C(self):
+        """Starts environment with A2C."""
+        if self.AnsokuENV_thread and self.AnsokuENV_thread.is_alive():
+            print(Fore.YELLOW + "Bot is already running.")
+            return
+
+        import SharedData
+        SharedData.hwnd = self.hwnd
+        SharedData.id = self
+
+        self.run_button2.configure(state='disabled')
+        self.AnsokuENV_thread = threading.Thread(target=self.Ansoku_A2C_ENV_output, daemon=True)
+        self.AnsokuENV_thread.start()
+        print(Fore.BLUE + "AI started (A2C).")
+
+    def Ansoku_PPO_ENV_output(self):
+        """Environment thread function for PPO."""
         try:
             time.sleep(1)
-
+            SharedData.using_PPO_model = True
             from AnsokuStartup import StartAI
             sys.modules['AnsokuStartup'].console_redirect = sys.stdout
             StartAI(puzzlePieceFolder, chromeTabTitle)
-
         except Exception as e:
             print(Fore.RED + f"An error occurred: {e}")
         finally:
-            # Re-enable the Run button if the bot_output thread finishes
+            # Re-enable the PPO button if the bot_output thread finishes
             self.run_button.configure(state='normal')
+
+    # -------------------- New A2C Environment Method --------------------
+    def Ansoku_A2C_ENV_output(self):
+        """Environment thread function for A2C."""
+        try:
+            time.sleep(1)
+            SharedData.using_PPO_model = False
+            from AnsokuStartup import StartAI
+            sys.modules['AnsokuStartup'].console_redirect = sys.stdout
+            StartAI(puzzlePieceFolder, chromeTabTitle)
+        except Exception as e:
+            print(Fore.RED + f"An error occurred: {e}")
+        finally:
+            # Re-enable the A2C button if the bot_output thread finishes
+            self.run_button2.configure(state='normal')
 
     def display_image(self, img, crop_box=None):
         img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
@@ -398,21 +459,16 @@ class App(customtkinter.CTk):
         # Store the original image size after cropping
         self.original_width, self.original_height = self.pil_image.size
 
-        # Define the maximum scaling factor (e.g., 2.0 means the image can be up to twice its original size)
+        # Define the maximum scaling factor (e.g., 2.0 means up to twice its original size)
         self.max_scale_factor = 2.0
 
         def resize_image(event=None):
             width = int(self.image_label.winfo_width())
             height = int(self.image_label.winfo_height())
             if width > 0 and height > 0:
-                # Calculate the scaling factors for width and height
                 scale_w = width / self.original_width
                 scale_h = height / self.original_height
-
-                # Choose the smaller scaling factor to maintain aspect ratio
                 scale_factor = min(scale_w, scale_h, self.max_scale_factor)
-
-                # Calculate the new size with the scaling factor
                 new_width = int(self.original_width * scale_factor)
                 new_height = int(self.original_height * scale_factor)
 
@@ -442,8 +498,6 @@ class App(customtkinter.CTk):
             self.text_font.configure(size=new_font_size)  # Update tkinter font
             self.ctk_font.configure(size=new_font_size)   # Update customtkinter font
             self.console.configure(font=self.text_font)    # Apply updated tkinter font
-            # Update other widgets if necessary
-            # Note: CustomDropdown handles its own resizing
 
     def on_closing(self):
         self.destroy()
@@ -462,9 +516,9 @@ class App(customtkinter.CTk):
         light_colors = ['LightBlack', 'LightRed', 'LightGreen', 'LightYellow', 
                         'LightBlue', 'LightMagenta', 'LightCyan', 'BrightWhite', 'White']
         green_colors = ['Green', 'LightGreen']
-        red_colors = ['Red', 'LightRed']           # Added LightRed to Red filter
-        yellow_colors = ['Yellow', 'LightYellow'] # Added LightYellow to Yellow filter
-        blue_colors = ['Blue', 'LightBlue']        # Added LightBlue to Blue filter
+        red_colors = ['Red', 'LightRed']           
+        yellow_colors = ['Yellow', 'LightYellow']  
+        blue_colors = ['Blue', 'LightBlue']        
 
         # Iterate through color tags
         for code, (color, name) in self.console_redirect.foreground_color_map.items():
@@ -472,9 +526,8 @@ class App(customtkinter.CTk):
             if name == 'White':
                 # Always show White messages
                 self.console.tag_configure(tag_name, elide=False)
-                continue  # Skip further filtering for White
+                continue
             if filter_value == 'Any':
-                # Show all messages except White is already handled
                 self.console.tag_configure(tag_name, elide=False)
             elif filter_value == 'Light':
                 if name in light_colors:
@@ -502,12 +555,10 @@ class App(customtkinter.CTk):
                 else:
                     self.console.tag_configure(tag_name, elide=True)
             else:
-                # For any other filter values, hide all
                 self.console.tag_configure(tag_name, elide=True)
 
         # Ensure 'input' tag is always visible
         self.console.tag_configure('input', elide=False)
-
 
 def launch_tensorboard(logdir):
     tb = program.TensorBoard()

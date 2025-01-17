@@ -2737,7 +2737,6 @@
     <Content Include="env\Scripts\pip3.exe" />
     <Content Include="env\Scripts\python.exe" />
     <Content Include="env\Scripts\pythonw.exe" />
-    <Content Include="Models\PPO\AnsokuModel.zip" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.10" />
@@ -3099,6 +3098,7 @@
     <Folder Include="env\Scripts\" />
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
+    <Folder Include="Models\A2C\" />
     <Folder Include="Models\PPO\" />
     <Folder Include="PuzzlePieces\" />
   </ItemGroup>

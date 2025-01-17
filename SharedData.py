@@ -5,10 +5,20 @@ puzzlePieceFolder = "PuzzlePieces/"
 chromeTabTitle = "unity web player"
 
 logdir = "Logs/"
-model_name = "PPO"
+model_name = "A2C"
 models_dir = f"Models/{model_name}"
 
+using_PPO_model = True
+
 trainingSteps= int(1e10)
+trainingCheckpoints = 100000
+
+maxSteps_distance = 1100
+
+maxSteps_penalty = 2
+
+placedPiece_reward = 10
+pickedUPPiece_reward = 5
 
 currentPuzzlePieces = dict(puzzlePiece_left = "Empty", puzzlePiece_middle = "Empty", puzzlePiece_right = "Empty")
 board_gridcell_values = None

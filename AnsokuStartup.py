@@ -85,8 +85,27 @@ def StartMachineLearningAgent():
     env = AnsokuEnv()
     check_env(env)
 
-    model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=logdir, device="cpu")
-    model.learn(total_timesteps=trainingSteps)
-    model.save(f"{models_dir}/AnsokuModel")
+    if SharedData.using_PPO_model:
 
+        SharedData.model_name = "PPO"
 
+        model = PPO("MlpPolicy", env, device="cpu",verbose=1,learning_rate=3e-4,n_steps=4096,batch_size=128,n_epochs=8,gamma=0.99,
+        gae_lambda=0.95, clip_range=0.2, ent_coef=0.05, tensorboard_log=logdir)
+
+    else:
+
+        SharedData.model_name = "A2C"
+
+        model = A2C("MlpPolicy", env, device="cpu", verbose=1, learning_rate=7e-4, n_steps=10, gamma=0.995, gae_lambda=1.0, ent_coef=0.05,
+        max_grad_norm=0.5,use_rms_prop=True, rms_prop_eps=1e-5, normalize_advantage=True, tensorboard_log=logdir)
+
+    print(SharedData.model_name)
+
+    total_timesteps = SharedData.trainingSteps
+    checkpoint_interval = int(total_timesteps / SharedData.trainingCheckpoints)
+
+    for step in range(0, total_timesteps, checkpoint_interval):
+        model.learn(total_timesteps=checkpoint_interval)
+        model.save(f"{models_dir}/AnsokuModel_step_{step + checkpoint_interval}")
+
+    model.save(f"{models_dir}/AnsokuModel_final")
