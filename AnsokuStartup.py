@@ -85,21 +85,36 @@ def StartMachineLearningAgent():
     env = AnsokuEnv()
     check_env(env)
 
-    if SharedData.using_PPO_model:
+    if SharedData.continue_training:
 
-        SharedData.model_name = "PPO"
+        if SharedData.using_PPO_model:
 
-        model = PPO("MlpPolicy", env, device="cpu",verbose=1,learning_rate=3e-4,n_steps=4096,batch_size=128,n_epochs=8,gamma=0.99,
-        gae_lambda=0.95, clip_range=0.2, ent_coef=0.05, tensorboard_log=logdir)
+            SharedData.model_name = "PPO"
+
+            model = PPO.load(SharedData.models_Continue_dir, env=env, device="cpu")
+
+        else:
+
+            SharedData.model_name = "A2C"
+
+            model = A2C.load(SharedData.models_Continue_dir, env=env, device="cpu")
 
     else:
 
-        SharedData.model_name = "A2C"
+        if SharedData.using_PPO_model:
 
-        model = A2C("MlpPolicy", env, device="cpu", verbose=1, learning_rate=7e-4, n_steps=10, gamma=0.995, gae_lambda=1.0, ent_coef=0.05,
-        max_grad_norm=0.5,use_rms_prop=True, rms_prop_eps=1e-5, normalize_advantage=True, tensorboard_log=logdir)
+            SharedData.model_name = "PPO"
 
-    print(SharedData.model_name)
+            model = PPO("MlpPolicy", env, device="cpu",verbose=1,learning_rate=1e-4,n_steps=8192,batch_size=64,n_epochs=8,gamma=0.99,
+            gae_lambda=0.95, clip_range=0.1, ent_coef=0.03, tensorboard_log=logdir)
+
+        else:
+
+            SharedData.model_name = "A2C"
+
+            model = A2C("MlpPolicy", env, device="cpu", verbose=1, learning_rate=7e-4, n_steps=20, gamma=0.995, gae_lambda=1.0, ent_coef=0.05,
+            max_grad_norm=0.5,use_rms_prop=True, rms_prop_eps=1e-5, normalize_advantage=True, tensorboard_log=logdir)
+
 
     total_timesteps = SharedData.trainingSteps
     checkpoint_interval = int(total_timesteps / SharedData.trainingCheckpoints)

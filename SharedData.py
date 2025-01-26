@@ -5,17 +5,19 @@ puzzlePieceFolder = "PuzzlePieces/"
 chromeTabTitle = "unity web player"
 
 logdir = "Logs/"
-model_name = "A2C"
+model_name = ""
 models_dir = f"Models/{model_name}"
+model_Continue_dir = ""
 
 using_PPO_model = True
+continue_training = False
 
 trainingSteps= int(1e10)
-trainingCheckpoints = 100000
+trainingCheckpoints = 50000
 
-maxSteps_distance = 1100
+maxSteps_distance = 1000
 
-maxSteps_penalty = 2
+maxSteps_penalty = 1
 
 placedPiece_reward = 10
 pickedUPPiece_reward = 5

@@ -12,16 +12,18 @@ import ctypes
 from CommonImports import *
 import SharedData
 
+# ---- Minimal addition: import filedialog for picking a .zip file
+import tkinter.filedialog as filedialog
+
 # Initialize colorama with strip=False and convert=False
 init(strip=False, convert=False, autoreset=True)
-# Custom Input Handling for the GUI Console
+
 def custom_input(prompt=''):
     sys.stdout.write(prompt)
     sys.stdout.flush()
     app.console.input_handler.prompt_input()
     return app.input_queue.get().rstrip('\n')
 
-# Function to get the HWND for the Tkinter window
 def get_hwnd_from_tkinter(root):
     root.update_idletasks()
     hwnd = ctypes.windll.user32.GetParent(root.winfo_id())
@@ -44,7 +46,7 @@ class InputHandler:
             fg='#f8f8f2', 
             insertbackground='#f8f8f2', 
             borderwidth=0,
-            font=self.root.text_font  # Use tkinter font
+            font=self.root.text_font
         )
         self.text_widget.window_create('end', window=self.entry)
         self.entry.bind('<Return>', self.on_enter)
@@ -53,7 +55,7 @@ class InputHandler:
 
     def on_enter(self, event):
         user_input = self.entry_var.get()
-        self.text_widget.insert('end', user_input + '\n', 'input')  # Assign 'input' tag
+        self.text_widget.insert('end', user_input + '\n', 'input')  
         self.text_widget.see('end')
         self.entry.destroy()
         self.input_queue.put(user_input + '\n')
@@ -69,41 +71,38 @@ class ConsoleRedirect:
     def __init__(self, text_widget, input_queue, console_font, filter_var):
         self.text_widget = text_widget
         self.input_queue = input_queue
-        self.console_font = console_font  # This is the tkinter font
+        self.console_font = console_font
         self.filter_var = filter_var
         self.pattern = re.compile(r'\x1b\[(.*?)m')
 
-        # Define color mappings
         self.foreground_color_map = {
-            '30': ('#000000', 'Black'),            # Black
-            '31': ('#ff5555', 'Red'),              # Red
-            '32': ('#50fa7b', 'Green'),            # Green
-            '33': ('#f1fa8c', 'Yellow'),           # Yellow
-            '34': ('#bd93f9', 'Blue'),             # Blue
-            '35': ('#ff79c6', 'Magenta'),          # Magenta
-            '36': ('#8be9fd', 'Cyan'),             # Cyan
-            '37': ('#f8f8f2', 'White'),            # White
-            '90': ('#4d4d4d', 'LightBlack'),       # Light Black (Bright Black / Gray)
-            '91': ('#ff6e6e', 'LightRed'),         # Light Red
-            '92': ('#69ff94', 'LightGreen'),       # Light Green
-            '93': ('#ffffa5', 'LightYellow'),      # Light Yellow
-            '94': ('#d6acff', 'LightBlue'),        # Light Blue
-            '95': ('#ff92df', 'LightMagenta'),     # Light Magenta
-            '96': ('#a4ffff', 'LightCyan'),        # Light Cyan
-            '97': ('#ffffff', 'BrightWhite'),      # Bright White
+            '30': ('#000000', 'Black'),
+            '31': ('#ff5555', 'Red'),
+            '32': ('#50fa7b', 'Green'),
+            '33': ('#f1fa8c', 'Yellow'),
+            '34': ('#bd93f9', 'Blue'),
+            '35': ('#ff79c6', 'Magenta'),
+            '36': ('#8be9fd', 'Cyan'),
+            '37': ('#f8f8f2', 'White'),
+            '90': ('#4d4d4d', 'LightBlack'),
+            '91': ('#ff6e6e', 'LightRed'),
+            '92': ('#69ff94', 'LightGreen'),
+            '93': ('#ffffa5', 'LightYellow'),
+            '94': ('#d6acff', 'LightBlue'),
+            '95': ('#ff92df', 'LightMagenta'),
+            '96': ('#a4ffff', 'LightCyan'),
+            '97': ('#ffffff', 'BrightWhite'),
         }
 
-        # Initialize current text attributes
         self.current_foreground_name = None
 
-        # Configure all color tags using color names
+        # Configure color tags
         for code, (color, name) in self.foreground_color_map.items():
             tag_name = f'fg_{name}'
             tag_config = {'foreground': color, 'font': self.console_font}
             self.text_widget.tag_configure(tag_name, **tag_config)
 
-        # Configure 'input' tag
-        self.text_widget.tag_configure('input', foreground='#f8f8f2')  # Adjust as needed
+        self.text_widget.tag_configure('input', foreground='#f8f8f2')
 
     def write(self, message):
         def append():
@@ -116,7 +115,7 @@ class ConsoleRedirect:
                     if tag_name:
                         self.text_widget.insert('end', text, tag_name)
                     else:
-                        self.text_widget.insert('end', text, 'input')  # Assign 'input' tag
+                        self.text_widget.insert('end', text, 'input')
                 ansi_codes = match.group(1).split(';')
                 for code in ansi_codes:
                     if code == '0':
@@ -130,7 +129,7 @@ class ConsoleRedirect:
                 if tag_name:
                     self.text_widget.insert('end', text, tag_name)
                 else:
-                    self.text_widget.insert('end', text, 'input')  # Assign 'input' tag
+                    self.text_widget.insert('end', text, 'input')
             self.text_widget.see('end')
         self.text_widget.after(0, append)
 
@@ -151,40 +150,35 @@ class CustomDropdown(customtkinter.CTkFrame):
     def __init__(self, master, options, variable, **kwargs):
         super().__init__(master, **kwargs)
         self.options = options
-        self.variable = variable  # StringVar passed from App
+        self.variable = variable
 
         self.button = customtkinter.CTkButton(
-            self, 
-            textvariable=self.variable, 
+            self,
+            textvariable=self.variable,
             command=self.toggle_dropdown,
-            anchor='w',  # Align text to the left
-            width=150  # Set a reasonable width
+            anchor='w',
+            width=150
         )
         self.button.pack(fill='x')
 
         self.dropdown_frame = customtkinter.CTkFrame(self, fg_color="#2F2F2F")
         self.dropdown_visible = False
 
-        # Initially populate dropdown without duplication
         self.populate_dropdown()
-
-        # Trace the variable to update dropdown when selection changes
         self.variable.trace('w', self.on_selection_change)
 
     def populate_dropdown(self):
-        # Clear existing buttons
         for widget in self.dropdown_frame.winfo_children():
             widget.destroy()
 
-        # Add buttons excluding the currently selected option
         for option in self.options:
             if option != self.variable.get():
                 option_button = customtkinter.CTkButton(
                     self.dropdown_frame,
                     text=option,
                     command=lambda opt=option: self.select_option(opt),
-                    anchor='w',  # Align text to the left
-                    width=self.button.winfo_width()  # Match the main button's width
+                    anchor='w',
+                    width=self.button.winfo_width()
                 )
                 option_button.pack(fill='x')
 
@@ -193,7 +187,7 @@ class CustomDropdown(customtkinter.CTkFrame):
             self.dropdown_frame.pack_forget()
             self.dropdown_visible = False
         else:
-            self.populate_dropdown()  # Repopulate dropdown to exclude selected option
+            self.populate_dropdown()
             self.dropdown_frame.pack(fill='x')
             self.dropdown_visible = True
 
@@ -217,7 +211,6 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-        # Main frame to hold everything
         self.main_frame = customtkinter.CTkFrame(self)
         self.main_frame.grid(row=0, column=0, sticky='nsew')
         self.main_frame.grid_rowconfigure(0, weight=1)
@@ -235,75 +228,73 @@ class App(customtkinter.CTk):
         self.image_frame.grid(row=0, column=1, sticky='nsew')
         self.image_frame.configure(fg_color='#1e1e1e')
 
-        # Right padding frame to add more breathing space
+        # Right padding frame
         self.padding_frame = customtkinter.CTkFrame(self.main_frame, fg_color='#1e1e1e')
         self.padding_frame.grid(row=0, column=2, sticky='nsew')
 
-        # Console setup with increased font size by 1.3 times
         base_font_size = 12
         increased_font_size = int(base_font_size * 1.3)
-        self.text_font = tkfont.Font(family="TkDefaultFont", size=increased_font_size)  # tkinter font
-        self.ctk_font = CTkFont(family="TkDefaultFont", size=increased_font_size)       # customtkinter font
+        self.text_font = tkfont.Font(family="TkDefaultFont", size=increased_font_size)
+        self.ctk_font = CTkFont(family="TkDefaultFont", size=increased_font_size)
 
         self.console = tkinter.Text(
-            self.console_frame, 
-            wrap='word', 
-            bg='#1e1e1e', 
-            fg='#f8f8f2', 
-            borderwidth=0, 
+            self.console_frame,
+            wrap='word',
+            bg='#1e1e1e',
+            fg='#f8f8f2',
+            borderwidth=0,
             highlightthickness=0,
-            font=self.text_font  # Use tkinter font
+            font=self.text_font
         )
         self.console.pack(expand=True, fill='both')
 
         self.input_queue = Queue()
         self.console.input_handler = InputHandler(self, self.console, self.input_queue)
 
-        # Create a frame for row=1 to hold the filter_dropdown and the spacer
+        # Filter frame
         self.filter_frame = customtkinter.CTkFrame(self.main_frame, fg_color='#1e1e1e')
         self.filter_frame.grid(row=1, column=0, columnspan=3, sticky='ew', padx=10, pady=10)
-        self.filter_frame.grid_columnconfigure(0, weight=0)  # filter_dropdown column
-        self.filter_frame.grid_columnconfigure(1, weight=1)  # Spacer column
+        self.filter_frame.grid_columnconfigure(0, weight=0)
+        self.filter_frame.grid_columnconfigure(1, weight=1)
 
-        # Custom Dropdown menu to filter console output by color
         self.filter_var = tkinter.StringVar(value='Any')
         self.filter_dropdown = CustomDropdown(
-            self.filter_frame, 
+            self.filter_frame,
             options=['Any', 'Green', 'Yellow', 'Red', 'Blue', 'Light'],
-            variable=self.filter_var,  # Pass the StringVar
+            variable=self.filter_var,
             fg_color="#1e1e1e"
         )
-        self.filter_dropdown.grid(row=0, column=0, sticky='w')  # Align to the west
+        self.filter_dropdown.grid(row=0, column=0, sticky='w')
 
-        # Initialize ConsoleRedirect
-        self.console_redirect = ConsoleRedirect(self.console, self.input_queue, self.text_font, self.filter_var)  # Use tkinter font
-        sys.stdout = self.console_redirect  # Redirect stdout
+        self.console_redirect = ConsoleRedirect(self.console, self.input_queue, self.text_font, self.filter_var)
+        sys.stdout = self.console_redirect
 
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
-        # Image label setup with breathing space
-        # Create a subframe for the Train button and image
+        # Image subframe
         self.image_subframe = customtkinter.CTkFrame(self.image_frame, fg_color='#1e1e1e', corner_radius=0)
         self.image_subframe.grid(row=0, column=0, sticky='nsew')
         self.image_frame.grid_rowconfigure(0, weight=1)
         self.image_frame.grid_columnconfigure(0, weight=1)
 
-        self.image_subframe.grid_rowconfigure(0, weight=0)  # This row will hold our title label and Train buttons
-        self.image_subframe.grid_rowconfigure(1, weight=1)  # Image display row
+        self.image_subframe.grid_rowconfigure(0, weight=0)
+        self.image_subframe.grid_rowconfigure(1, weight=1)
         self.image_subframe.grid_columnconfigure(0, weight=1)
 
-        # Create a frame inside image_subframe to hold the title label and Train buttons
+        # Button frame
         self.run_button_frame = customtkinter.CTkFrame(self.image_subframe, fg_color='#1e1e1e')
-        self.run_button_frame.grid(row=0, column=0, sticky='ew', pady=10)
+        self.run_button_frame.grid(row=0, column=0, sticky='nsew', pady=10)
 
-        # Configure run_button_frame to allow centering
+        # ---- Minimal change: center the 2 existing buttons by adding "stretch" columns on sides
+        self.run_button_frame.grid_columnconfigure(0, weight=1)  # left stretch
+        self.run_button_frame.grid_columnconfigure(1, weight=0)  # PPO button
+        self.run_button_frame.grid_columnconfigure(2, weight=0)  # A2C button
+        self.run_button_frame.grid_columnconfigure(3, weight=0)  # Continue Training
+        self.run_button_frame.grid_columnconfigure(4, weight=1)  # right stretch
+
         self.run_button_frame.grid_rowconfigure(0, weight=0)
-        self.run_button_frame.grid_rowconfigure(1, weight=0)
-        # We'll add another column for the second button
-        self.run_button_frame.grid_columnconfigure(0, weight=0)
-        self.run_button_frame.grid_columnconfigure(1, weight=0)
 
-        # -------------------- New Label Added Here --------------------
+        # Label
         self.title_label = customtkinter.CTkLabel(
             self.run_button_frame,
             text="AnsokuBot",
@@ -311,28 +302,14 @@ class App(customtkinter.CTk):
             fg_color="#1e1e1e",
             font=CTkFont(family="TkDefaultFont", size=16, weight="bold")
         )
-        self.title_label.grid(row=0, column=0, columnspan=2, pady=(0, 5))
-        # -------------------------------------------------------------
+        # Place label above buttons in row=0, centered across columns 1..3
+        self.title_label.grid(row=0, column=1, columnspan=3, pady=(0, 5))
 
-        # -------------------- First Button (PPO) ---------------------
+        # ---- First Button (PPO) in row=1 col=1
         self.run_button = customtkinter.CTkButton(
-            self.run_button_frame, 
-            text="Train AI (PPO)",  # changed text
-            command=self.start_AnsokuENV_output,  # same command for PPO
-            hover_color="#44475a",  # Darker shade on hover
-            fg_color="#6272a4",     # Initial color
-            text_color="#f8f8f2",   # Text color
-            corner_radius=8,
-            width=80,
-            height=30
-        )
-        self.run_button.grid(row=1, column=0, padx=5)
-
-        # -------------------- Second Button (A2C) --------------------
-        self.run_button2 = customtkinter.CTkButton(
             self.run_button_frame,
-            text="Train AI (A2C)",  # new button text
-            command=self.start_AnsokuENV_output_A2C,  # new A2C command
+            text="Train AI (PPO)",
+            command=self.start_AnsokuENV_output,
             hover_color="#44475a",
             fg_color="#6272a4",
             text_color="#f8f8f2",
@@ -340,19 +317,46 @@ class App(customtkinter.CTk):
             width=80,
             height=30
         )
-        self.run_button2.grid(row=1, column=1, padx=5)
+        self.run_button.grid(row=1, column=1, padx=5)
 
-        # Image display frame
+        # ---- Second Button (A2C) in row=1 col=2
+        self.run_button2 = customtkinter.CTkButton(
+            self.run_button_frame,
+            text="Train AI (A2C)",
+            command=self.start_AnsokuENV_output_A2C,
+            hover_color="#44475a",
+            fg_color="#6272a4",
+            text_color="#f8f8f2",
+            corner_radius=8,
+            width=80,
+            height=30
+        )
+        self.run_button2.grid(row=1, column=2, padx=5)
+
+        # ---- Minimal addition: Continue Training button in row=1 col=3
+        self.continue_button = customtkinter.CTkButton(
+            self.run_button_frame,
+            text="Continue Training",
+            command=self.start_continue_training,
+            hover_color="#44475a",
+            fg_color="#6272a4",
+            text_color="#f8f8f2",
+            corner_radius=8,
+            width=120,
+            height=30
+        )
+        self.continue_button.grid(row=1, column=3, padx=5)
+
         self.image_display_frame = customtkinter.CTkFrame(self.image_subframe, fg_color='#1e1e1e')
         self.image_display_frame.grid(row=1, column=0, sticky='nsew', padx=10, pady=10)
         self.image_display_frame.grid_rowconfigure(0, weight=1)
         self.image_display_frame.grid_columnconfigure(0, weight=1)
-        self.image_display_frame.grid_rowconfigure(0, weight=1)      # Minimum height
-        self.image_display_frame.grid_columnconfigure(0, weight=1, minsize=500)   # Minimum width
+        self.image_display_frame.grid_rowconfigure(0, weight=1)
+        self.image_display_frame.grid_columnconfigure(0, weight=1, minsize=500)
 
         self.placeholder_panel = tkinter.Frame(
-            self.image_display_frame, 
-            bg='#2F2F2F'  # Darker gray
+            self.image_display_frame,
+            bg='#2F2F2F'
         )
         self.placeholder_label = tkinter.Label(
             self.placeholder_panel,
@@ -362,22 +366,60 @@ class App(customtkinter.CTk):
             font=('TkDefaultFont', 14)
         )
         self.placeholder_label.pack(expand=True, fill='both')
-        self.placeholder_panel.grid(row=0, column=0, columnspan=1, sticky='nsew')  # Allow expansion
+        self.placeholder_panel.grid(row=0, column=0, columnspan=1, sticky='nsew')
 
-        # Image label below the "Train" button (initially hidden)
         self.image_label = tkinter.Label(self.image_display_frame, bg='#1e1e1e')
-        # Initially, the image_label is not packed or placed
 
         self.bind("<Configure>", self.on_resize)
-
-        # Add trace to filter_var to update filter when it changes
         self.filter_var.trace('w', self.update_filter)
 
-        # Initialize a flag to prevent multiple threads
         self.AnsokuENV_thread = None
 
-        # Uncomment the following line to start the AnsokuENV output automatically
-        # self.start_AnsokuENV_output()
+    # ----------------------------------------------------------------------
+    #  Minimal addition: Continue Training logic
+    # ----------------------------------------------------------------------
+    def start_continue_training(self):
+
+        self.continue_button.configure(state='disabled')
+        self.AnsokuENV_thread = threading.Thread(target=self.Ansoku_Continue_ENV_output, daemon=True)
+        self.AnsokuENV_thread.start()
+
+    def Ansoku_Continue_ENV_output(self):
+        """Environment thread function for continuing training."""
+        try:
+
+            import SharedData
+            """Pick a .zip file, set SharedData.models_Continue_dir, ask model name (PPO/A2C), then run environment."""
+            file_path = filedialog.askopenfilename(filetypes=[("Zip Files", "*.zip")], initialdir="Models/")
+            if not file_path:
+                print("No file selected. Aborting.")
+                return
+            SharedData.models_Continue_dir = file_path
+            print(f"Selected zip: {file_path}")
+        
+            print("Which model do you want to use? (PPO or A2C)")
+            model_choice = input("").strip().upper()
+            if model_choice == "PPO":
+                SharedData.model_name = "PPO"
+            elif model_choice == "A2C":
+                SharedData.model_name = "A2C"
+            else:
+                print("Invalid choice, defaulting to PPO.")
+                SharedData.model_name = "PPO"
+
+            SharedData.hwnd = self.hwnd
+            SharedData.id = self
+
+            time.sleep(1)
+            SharedData.continue_training = True  # per your snippet
+            from AnsokuStartup import StartAI
+            sys.modules['AnsokuStartup'].console_redirect = sys.stdout
+            StartAI(puzzlePieceFolder, chromeTabTitle)
+        except Exception as e:
+            print(Fore.RED + f"An error occurred: {e}")
+        finally:
+            # Re-enable the Continue button afterward
+            self.continue_button.configure(state='normal')
 
     def initialize_window_handle(self):
         try:
@@ -404,7 +446,6 @@ class App(customtkinter.CTk):
         self.AnsokuENV_thread.start()
         print(Fore.BLUE + "AI started (PPO).")
 
-    # -------------------- Second Method for A2C --------------------
     def start_AnsokuENV_output_A2C(self):
         """Starts environment with A2C."""
         if self.AnsokuENV_thread and self.AnsokuENV_thread.is_alive():
@@ -431,10 +472,8 @@ class App(customtkinter.CTk):
         except Exception as e:
             print(Fore.RED + f"An error occurred: {e}")
         finally:
-            # Re-enable the PPO button if the bot_output thread finishes
             self.run_button.configure(state='normal')
 
-    # -------------------- New A2C Environment Method --------------------
     def Ansoku_A2C_ENV_output(self):
         """Environment thread function for A2C."""
         try:
@@ -446,7 +485,6 @@ class App(customtkinter.CTk):
         except Exception as e:
             print(Fore.RED + f"An error occurred: {e}")
         finally:
-            # Re-enable the A2C button if the bot_output thread finishes
             self.run_button2.configure(state='normal')
 
     def display_image(self, img, crop_box=None):
@@ -456,10 +494,7 @@ class App(customtkinter.CTk):
         if crop_box:
             self.pil_image = self.pil_image.crop(crop_box)
 
-        # Store the original image size after cropping
         self.original_width, self.original_height = self.pil_image.size
-
-        # Define the maximum scaling factor (e.g., 2.0 means up to twice its original size)
         self.max_scale_factor = 2.0
 
         def resize_image(event=None):
@@ -477,7 +512,6 @@ class App(customtkinter.CTk):
                 self.image_label.configure(image=tk_image)
                 self.image_label.image = tk_image
 
-        # If placeholder is visible, hide it and show the image
         if self.placeholder_panel.winfo_ismapped():
             self.placeholder_panel.grid_forget()
             self.image_label.grid(row=0, column=0, sticky='nsew', padx=10, pady=10)
@@ -488,16 +522,15 @@ class App(customtkinter.CTk):
     def on_resize(self, event):
         if event.widget == self:
             self.update_font_size()
-            # No need to call on_parent_resize since we removed it to prevent flickering
 
     def update_font_size(self):
         width = self.winfo_width()
         height = self.winfo_height()
         new_font_size = min(20, max(10, int(height * 0.02)))
         if self.text_font['size'] != new_font_size:
-            self.text_font.configure(size=new_font_size)  # Update tkinter font
-            self.ctk_font.configure(size=new_font_size)   # Update customtkinter font
-            self.console.configure(font=self.text_font)    # Apply updated tkinter font
+            self.text_font.configure(size=new_font_size)
+            self.ctk_font.configure(size=new_font_size)
+            self.console.configure(font=self.text_font)
 
     def on_closing(self):
         self.destroy()
@@ -511,20 +544,16 @@ class App(customtkinter.CTk):
 
     def update_filter(self, *args):
         filter_value = self.filter_var.get()
-
-        # Define which tags are considered "Light"
-        light_colors = ['LightBlack', 'LightRed', 'LightGreen', 'LightYellow', 
+        light_colors = ['LightBlack', 'LightRed', 'LightGreen', 'LightYellow',
                         'LightBlue', 'LightMagenta', 'LightCyan', 'BrightWhite', 'White']
         green_colors = ['Green', 'LightGreen']
-        red_colors = ['Red', 'LightRed']           
-        yellow_colors = ['Yellow', 'LightYellow']  
-        blue_colors = ['Blue', 'LightBlue']        
+        red_colors = ['Red', 'LightRed']
+        yellow_colors = ['Yellow', 'LightYellow']
+        blue_colors = ['Blue', 'LightBlue']
 
-        # Iterate through color tags
         for code, (color, name) in self.console_redirect.foreground_color_map.items():
             tag_name = f'fg_{name}'
             if name == 'White':
-                # Always show White messages
                 self.console.tag_configure(tag_name, elide=False)
                 continue
             if filter_value == 'Any':
@@ -557,7 +586,6 @@ class App(customtkinter.CTk):
             else:
                 self.console.tag_configure(tag_name, elide=True)
 
-        # Ensure 'input' tag is always visible
         self.console.tag_configure('input', elide=False)
 
 def launch_tensorboard(logdir):
@@ -577,5 +605,6 @@ if __name__ == "__main__":
 
     app = App()
     builtins.input = custom_input
-    app.after(1000, app.initialize_window_handle)  # Ensure window handle is initialized after setup
+    # Minimal change: keep the call to initialize_window_handle
+    app.after(1000, app.initialize_window_handle)
     app.mainloop()

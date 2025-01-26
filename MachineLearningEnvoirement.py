@@ -62,6 +62,7 @@ class AnsokuEnv(gym.Env):
             [int(1e3)] +
             [int(1e3)] +
             [2, 2, 2, 2, 2, 2, 2] +
+            [2] +
             [int(1e4)] +
             [int(1e4)] +
             [int(1e4)] +
@@ -83,6 +84,8 @@ class AnsokuEnv(gym.Env):
         self.leftPuzzle_distance = 0
         self.middlePuzzle_distance = 0
         self.rightPuzzle_distance = 0
+
+        self.at_border = False
 
         self.hold_left = False
         self.hold_mid = False
@@ -558,9 +561,9 @@ class AnsokuEnv(gym.Env):
                        pass
 
         if 918 <= mouseX <= 1637 and  73 <= mouseY <= 1367:
-            pass
+            actionReward += 1
         else:
-            actionReward -= 5
+            actionReward -= 2
 
         #debu info
         #print("playedGames status is " + str(self.playedGames) + " and a mult of " + str(self.gameCostMult))
@@ -605,8 +608,8 @@ class AnsokuEnv(gym.Env):
         currentTime = time.time()
         timeSinceLastAction = currentTime - self.holdingPiece_time
 
-        if timeSinceLastAction >= 240:
-            actionReward -= 15
+        if timeSinceLastAction >= 900:
+            actionReward -= 30
             SharedData.terminated = True
 
         terminated = SharedData.terminated
@@ -665,6 +668,8 @@ class AnsokuEnv(gym.Env):
         placed_mid = self.convertBool(self.placed_mid)
         placed_right = self.convertBool(self.placed_right)
 
+        at_border = self.convertBool(self.at_border)
+
         from SharedData import board_gridcell_values
         self.board_data = board_gridcell_values
 
@@ -705,7 +710,7 @@ class AnsokuEnv(gym.Env):
             puzzle3_posY = 0
 
         observation = board_encoded + [mouse_x, mouse_y] + [puzzle1_posX, puzzle1_posY] + [puzzle2_posX, puzzle2_posY] + [puzzle3_posX, 
-        puzzle3_posY] +[self.leftPuzzle_distance,self.middlePuzzle_distance,self.rightPuzzle_distance]+ [isholding, hold_left, hold_mid, hold_right, placed_left, placed_mid, placed_right,
+        puzzle3_posY] +[self.leftPuzzle_distance,self.middlePuzzle_distance,self.rightPuzzle_distance]+ [isholding, hold_left, hold_mid, hold_right, placed_left, placed_mid, placed_right,at_border,
         self.playedGames, self.placedPieceTotal, self.failedPlacements, self.totalDistance_moved, 
         left_piece_id, middle_piece_id, right_piece_id]
 
@@ -771,7 +776,6 @@ class AnsokuEnv(gym.Env):
             self.middlePuzzle_distance = 0
             self.rightPuzzle_distance = 0
             self.failedPlacements = 0
-            self.placedPieceTotal = 0
 
             from GetImage import GetGameImage
             GetGameImage(SharedData.puzzlePieceFolder,SharedData.chromeTabTitle)
